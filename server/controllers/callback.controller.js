@@ -1,0 +1,33 @@
+import axios from "axios"
+
+export async function callBack(req, res){
+    const client_id = process.env.CLIENT_ID
+    const client_secret = process.env.CLIENT_SECRET
+    const redirect_uri = "http://127.0.0.1:3001/callback"
+
+    console.log('Callback endpoint hit')
+    const code = req.query.code
+    
+    if (!code) {
+        return res.status(400).json({ error: 'Authorization code not provided' })
+    }
+    
+    try {
+        const response = await axios.post('https://accounts.spotify.com/api/token',
+            new URLSearchParams({
+                code, 
+                redirect_uri,
+                grant_type: 'authorization_code',
+                client_id,
+                client_secret
+            }),
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded'} }
+        )
+        const { access_token, refresh_token } = response.data
+        console.log('Successfully got tokens', access_token, refresh_token)
+        res.redirect(`http://127.0.0.1:5173?access_token=${access_token}`)
+    } catch (error) {
+        console.error('Error getting tokens:', error.response?.data || error.message)
+        res.status(500).json({ error: 'Failed to get access token' })
+    }
+}
