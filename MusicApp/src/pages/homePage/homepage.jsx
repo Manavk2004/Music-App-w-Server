@@ -16,9 +16,17 @@ import { useState, useEffect } from "react"
 export default function homePage(){
     const [play, setPlay] = useState(true)
 
+
+    //URL CHANGES:
+
     const handleLogin = () => {
         window.location.href = "http://127.0.0.1:3001/login";
     }
+
+    const handleArtist = () => {
+        window.location.href = "http://127.0.0.1:3001/artist"
+    }
+
 
     const urlParams = new URLSearchParams(window.location.search)
     
@@ -67,7 +75,7 @@ export default function homePage(){
                         </div>
                     </div>
                     <div id="chat-bot">
-
+                        <button onClick={handleArtist}>Artist</button>
                     </div>
                 </div>
             </div>

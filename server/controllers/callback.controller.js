@@ -1,4 +1,5 @@
 import axios from "axios"
+import session from "express-session"
 
 export async function callBack(req, res){
     const client_id = process.env.CLIENT_ID
@@ -24,8 +25,11 @@ export async function callBack(req, res){
             { headers: { 'Content-Type': 'application/x-www-form-urlencoded'} }
         )
         const { access_token, refresh_token } = response.data
-        console.log('Successfully got tokens', access_token, refresh_token)
+        req.session.access_token = access_token
+        console.log("Here is the req", req.session.cookie)
+        // console.log(`Successfully got tokens, Access Token:${access_token}, Refresh Token: ${refresh_token}`)
         res.redirect(`http://127.0.0.1:5173?access_token=${access_token}`)
+        return access_token
     } catch (error) {
         console.error('Error getting tokens:', error.response?.data || error.message)
         res.status(500).json({ error: 'Failed to get access token' })
