@@ -18,6 +18,8 @@ export default function homePage(){
     const [clicked, setClicked] = useState(false)
     const [image, setImage] = useState("")
     const [linkImage, setLinkImage] = useState([])
+    const [recentlyPlayed, setRecentlyPlayed] = useState([])
+
 
     //REFS
     const imageRef = useRef("")
@@ -29,6 +31,10 @@ export default function homePage(){
     useEffect(() =>{
         console.log(imageRef.current, linkRef.current)
     }, [])
+
+    useEffect(() =>{
+        console.log(recentlyPlayed)
+    }, [recentlyPlayed])
 
 
     //URL CHANGES:
@@ -68,7 +74,15 @@ export default function homePage(){
             if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return res.json()
         })
-        .then(data => console.log(data))
+        .then(data =>{
+            const songs = []
+            for (const song of data){
+                songs.push(song.track.album.images[0])
+            }
+            // console.log("Here are the songs", songs)
+            setRecentlyPlayed(songs)
+        }
+        )
     }
 
     console.log(linkImage)
