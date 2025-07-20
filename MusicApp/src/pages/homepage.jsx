@@ -139,6 +139,9 @@ export default function homePage(){
                     }
                     <div id="mp3-container1">
                         <div id="mp3-photo-1">
+                            {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
+                                <img id="mp3-image" src={recentlyPlayed[0].url} />
+                            }
                         </div>
 
                         <div id="audio-controls">
