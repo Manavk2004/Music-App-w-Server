@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import { loginRouter } from "./routes/login.router.js"
 import { callBackRouter } from "./routes/callback.router.js"
 import { artistRouter } from "./routes/artist.router.js"
+import { recentlyPlayedRouter } from "./routes/recentlyPlayed.router.js"
 import session from "express-session"
 
 dotenv.config()
@@ -30,6 +31,7 @@ const PORT = 3001
 app.use("/login", loginRouter)
 app.use("/callback", callBackRouter)
 app.use("/artist", artistRouter)
+app.use("/recently-played", recentlyPlayedRouter)
 
 
 

@@ -9,7 +9,7 @@ export function login(req, res){
         return res.status(500).json({ error: 'Spotify credentials not configured' })
     }
     
-    const scopes = 'user-read-private user-read-email user-top-read'
+    const scopes = 'user-read-private user-read-email user-top-read user-read-recently-played'
     const authUrl = 'https://accounts.spotify.com/authorize' + 
         `?response_type=code&client_id=${client_id}` + 
         `&scope=${encodeURIComponent(scopes)}` + 

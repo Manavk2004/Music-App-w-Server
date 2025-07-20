@@ -56,6 +56,21 @@ export default function homePage(){
         setClicked(() => true)
     }
 
+    const recentyPlayedFunc = () =>{
+        fetch('http://127.0.0.1:3001/recently-played', {
+            method: "GET", 
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res =>{
+            if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json()
+        })
+        .then(data => console.log(data))
+    }
+
     console.log(linkImage)
 
 
@@ -106,7 +121,8 @@ export default function homePage(){
                         <button onClick={handleArtist}>Artist</button>
                         {clicked && 
                             <div>
-                                <img src={linkImage[0]} />
+                                <a href={linkImage[1]}><img id="recommendation-image" src={linkImage[0]} /></a>
+                                <button onClick={recentyPlayedFunc}>Next</button>
                             </div>
                         }
                     </div>
