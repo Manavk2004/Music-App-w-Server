@@ -15,13 +15,10 @@ import { useState, useEffect, useRef } from "react"
 export default function homePage(){
     const [play, setPlay] = useState(true)
     const [clicked, setClicked] = useState(false)
-    const [image, setImage] = useState("")
     const [linkImage, setLinkImage] = useState([])
     const [recentlyPlayed, setRecentlyPlayed] = useState([])
-    const [login, setLogin] = useState(false)
+    const [imageIndex, setImageIndex] = useState([])
 
-    // This is for the login page confoguration:
-    const [index, setIndex] = useState(0)
 
 
 
@@ -40,7 +37,9 @@ export default function homePage(){
         console.log(recentlyPlayed)
     }, [recentlyPlayed])
 
-
+    useEffect(() =>{
+        console.log("Recently Played", imageIndex)
+    }, [imageIndex])
 
 
     //URL CHANGES:
@@ -64,7 +63,7 @@ export default function homePage(){
         })
         .then(data => setLinkImage(data))
         .catch(err => console.error('Fetch error:', err))
-        console.log("Image", imageRef, "Link", linkRef)
+        // console.log("Image", imageRef, "Link", linkRef)
         setClicked(() => true)
     }
 
@@ -93,12 +92,19 @@ export default function homePage(){
 
 
     //Functions
-
     function loadImages(){
-        const randomInt = Math.floor(Math.random()* 20) + 1
-        console.log("Load Images", recentlyPlayed)
-        return recentlyPlayed[randomInt].url
+        const imagesSet = new Set()
+        for(let i=0; i < 10; i++){
+            const randomInt = Math.floor(Math.random()* 20) + 1
+            imagesSet.add(randomInt)
+            if (imagesSet.size === 4){
+                const myArray = [...imagesSet]
+                setImageIndex(() => myArray)
+            }
+        }
+
     }
+
 
     return(
         <>
@@ -115,19 +121,19 @@ export default function homePage(){
                 </div>
 
                 <div id="body-container">
-                    {clicked && recentlyPlayed.length === 20 &&
+                    {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
                         <>
                             <div className="fidgets" id="fidget1">
-                                <img className="fidget-image" src={loadImages()} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[0]].url} />
                             </div>
                             <div className="fidgets" id="fidget2">
-                                <img className="fidget-image" src={loadImages()} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[1]].url} />
                             </div>
                             <div className="fidgets" id="fidget3">
-                                <img className="fidget-image" src={loadImages()} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[2]].url} />
                             </div>
                             <div className="fidgets" id="fidget4">
-                                <img className="fidget-image" src={loadImages()} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[3]].url} />
                             </div>
                         </>
                     }
@@ -145,7 +151,7 @@ export default function homePage(){
                     </div>
                     <div id="chat-bot">
                         {!clicked &&
-                            <button onClick={() => {recentlyPlayedFunc(); handleArtist()}}>LOGIN</button>
+                            <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages()}}>LOGIN</button>
                         }
                         {clicked && 
                             <div>
