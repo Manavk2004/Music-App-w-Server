@@ -41,6 +41,8 @@ export default function homePage(){
     }, [recentlyPlayed])
 
 
+
+
     //URL CHANGES:
 
     const handleLogin = () => {
@@ -66,7 +68,7 @@ export default function homePage(){
         setClicked(() => true)
     }
 
-    const recentyPlayedFunc = () =>{
+    const recentlyPlayedFunc = () =>{
         fetch('http://127.0.0.1:3001/recently-played', {
             method: "GET", 
             credentials: 'include',
@@ -89,6 +91,15 @@ export default function homePage(){
         )
     }
 
+
+    //Functions
+
+    function loadImages(){
+        const randomInt = Math.floor(Math.random()* 20) + 1
+        console.log("Load Images", recentlyPlayed)
+        return recentlyPlayed[randomInt].url
+    }
+
     return(
         <>
             <div id="background">
@@ -104,18 +115,22 @@ export default function homePage(){
                 </div>
 
                 <div id="body-container">
-                    <div className="fidgets" id="fidget1">
-
-                    </div>
-                    <div className="fidgets" id="fidget2">
-                    
-                    </div>
-                    <div className="fidgets" id="fidget3">
-                    
-                    </div>
-                    <div className="fidgets" id="fidget4">
-                    
-                    </div>
+                    {clicked && recentlyPlayed.length === 20 &&
+                        <>
+                            <div className="fidgets" id="fidget1">
+                                <img className="fidget-image" src={loadImages()} />
+                            </div>
+                            <div className="fidgets" id="fidget2">
+                                <img className="fidget-image" src={loadImages()} />
+                            </div>
+                            <div className="fidgets" id="fidget3">
+                                <img className="fidget-image" src={loadImages()} />
+                            </div>
+                            <div className="fidgets" id="fidget4">
+                                <img className="fidget-image" src={loadImages()} />
+                            </div>
+                        </>
+                    }
                     <div id="mp3-container1">
                         <div id="mp3-photo-1">
                         </div>
@@ -129,11 +144,11 @@ export default function homePage(){
                         </div>
                     </div>
                     <div id="chat-bot">
-                        <button onClick={handleArtist}>Artist</button>
+                        {!clicked &&
+                            <button onClick={() => {recentlyPlayedFunc(); handleArtist()}}>LOGIN</button>
+                        }
                         {clicked && 
                             <div>
-                                <a href={linkImage[1]}><img id="recommendation-image" src={linkImage[0]} /></a>
-                                <button onClick={recentyPlayedFunc}>Next</button>
                             </div>
                         }
                     </div>
