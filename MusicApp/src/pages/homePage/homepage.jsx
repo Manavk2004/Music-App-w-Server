@@ -8,6 +8,7 @@ import pausebutton from "../../assets/pausebutton.png"
 import skipForward from "../../assets/skipForward.png"
 import restart from "../../assets/restart.png"
 import goBack from "../../assets/goBack.png"
+import  RotatingHeader  from "../../components/loginPage.jsx"
 
 
 import { useState, useEffect, useRef } from "react" 
@@ -19,6 +20,11 @@ export default function homePage(){
     const [image, setImage] = useState("")
     const [linkImage, setLinkImage] = useState([])
     const [recentlyPlayed, setRecentlyPlayed] = useState([])
+    const [login, setLogin] = useState(false)
+
+    // This is for the login page confoguration:
+    const [index, setIndex] = useState(0)
+
 
 
     //REFS
@@ -85,63 +91,96 @@ export default function homePage(){
         )
     }
 
-    console.log(linkImage)
+    //Regular Functions
+    
 
 
 
+    //Login Page Title / Configuration
+    // const headerCount = useRef(0)
 
+    // function RotatingHeader(){
+    //     const headers = ['Welcome to MUSAI', 'Your Personal Music Dashboard', 'Login Here']
+
+    //     const [index, setIndex] = useState(0)
+
+    //     useEffect(() =>{
+    //         const interval = setInterval(() => {
+    //             setIndex((prev) => prev + 1)
+    //         }, 2000);
+    //         return () => clearInterval(interval)
+    //     }, [])
+    //     headerCount.current += 1
+        
+    //     return(
+    //         <h1 key={index} className="login-page-headers">
+    //             {headers[index]}
+    //         </h1>
+    //     )
+    // }
+
+    // if (headerCount.current === 4){
+    //     setLogin(() => true)
+    // }
 
 
     return(
         <>
-            <div id="background">
-                <div id="nav-bar-container">
-                    <nav id="navbar">
-                        <ul id="navbarUL">
-                        <a className="nav-a" href="/"> <img className="nav-icon" id="home-png" src={home}/> </a>
-                        <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
-                        <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
-                        <button className="nav-a" onClick={handleLogin}> <img className="nav-icon" id="folder" src={profile}/> </button>
-                        </ul>
-                    </nav>
+            {!login &&
+                <div id='login-background'>
+                    <RotatingHeader index={index} setLogin={setLogin} />
                 </div>
+            }
+            {login &&
+                <div id="background">
+                    <div id="nav-bar-container">
+                        <nav id="navbar">
+                            <ul id="navbarUL">
+                            <a className="nav-a" href="/"> <img className="nav-icon" id="home-png" src={home}/> </a>
+                            <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
+                            <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
+                            <button className="nav-a" onClick={handleLogin}> <img className="nav-icon" id="folder" src={profile}/> </button>
+                            </ul>
+                        </nav>
+                    </div>
 
-                <div id="body-container">
-                    <div className="fidgets" id="fidget1">
+                    <div id="body-container">
+                        <div className="fidgets" id="fidget1">
 
-                    </div>
-                    <div className="fidgets" id="fidget2">
-                    
-                    </div>
-                    <div className="fidgets" id="fidget3">
-                    
-                    </div>
-                    <div className="fidgets" id="fidget4">
-                    
-                    </div>
-                    <div id="mp3-container1">
-                        <div id="mp3-photo-1">
                         </div>
-
-                        <div id="audio-controls">
-                            <img id="restart-button" src={restart}/>
-                            <img  id="go-back" src={goBack}/>
-                            <img onClick={() => setPlay((prev) => (!prev))} id="play-button" src={play === true ? playbutton : pausebutton}/>
-                            <img id='skip-forward' src={skipForward}/>
-                            <img id="shuffle-button" src={shuffle}/>
+                        <div className="fidgets" id="fidget2">
+                        
                         </div>
-                    </div>
-                    <div id="chat-bot">
-                        <button onClick={handleArtist}>Artist</button>
-                        {clicked && 
-                            <div>
-                                <a href={linkImage[1]}><img id="recommendation-image" src={linkImage[0]} /></a>
-                                <button onClick={recentyPlayedFunc}>Next</button>
+                        <div className="fidgets" id="fidget3">
+                        
+                        </div>
+                        <div className="fidgets" id="fidget4">
+                        
+                        </div>
+                        <div id="mp3-container1">
+                            <div id="mp3-photo-1">
                             </div>
-                        }
+
+                            <div id="audio-controls">
+                                <img id="restart-button" src={restart}/>
+                                <img  id="go-back" src={goBack}/>
+                                <img onClick={() => setPlay((prev) => (!prev))} id="play-button" src={play === true ? playbutton : pausebutton}/>
+                                <img id='skip-forward' src={skipForward}/>
+                                <img id="shuffle-button" src={shuffle}/>
+                            </div>
+                        </div>
+                        <div id="chat-bot">
+                            <button onClick={handleArtist}>Artist</button>
+                            {clicked && 
+                                <div>
+                                    <a href={linkImage[1]}><img id="recommendation-image" src={linkImage[0]} /></a>
+                                    <button onClick={recentyPlayedFunc}>Next</button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         
         </>
     )
