@@ -10,29 +10,57 @@ import restart from "../../assets/restart.png"
 import goBack from "../../assets/goBack.png"
 
 
-import { useState, useEffect } from "react" 
+import { useState, useEffect, useRef } from "react" 
 
 
 export default function homePage(){
     const [play, setPlay] = useState(true)
+    const [clicked, setClicked] = useState(false)
+    const [image, setImage] = useState("")
+    const [linkImage, setLinkImage] = useState([])
+
+    //REFS
+    const imageRef = useRef("")
+    const linkRef = useRef("")
+    
+
+    //USEEffects
+
+    useEffect(() =>{
+        console.log(imageRef.current, linkRef.current)
+    }, [])
 
 
     //URL CHANGES:
 
     const handleLogin = () => {
         window.location.href = "http://127.0.0.1:3001/login";
+        
     }
 
     const handleArtist = () => {
-        window.location.href = "http://127.0.0.1:3001/artist"
+        fetch('http://127.0.0.1:3001/artist', {
+            method: "GET", 
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        })
+        .then(data => setLinkImage(data))
+        .catch(err => console.error('Fetch error:', err))
+        console.log("Image", imageRef, "Link", linkRef)
+        setClicked(() => true)
     }
 
+    console.log(linkImage)
 
-    const urlParams = new URLSearchParams(window.location.search)
-    
-    useEffect( () =>{
-        console.log(urlParams)
-    }, [])
+
+
+
 
 
     return(
@@ -76,6 +104,11 @@ export default function homePage(){
                     </div>
                     <div id="chat-bot">
                         <button onClick={handleArtist}>Artist</button>
+                        {clicked && 
+                            <div>
+                                <img src={linkImage[0]} />
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

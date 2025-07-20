@@ -6,7 +6,7 @@ export async function callBack(req, res){
     const client_secret = process.env.CLIENT_SECRET
     const redirect_uri = "http://127.0.0.1:3001/callback"
 
-    console.log('Callback endpoint hit')
+    // console.log('Callback endpoint hit')
     const code = req.query.code
     
     if (!code) {
@@ -26,7 +26,7 @@ export async function callBack(req, res){
         )
         const { access_token, refresh_token } = response.data
         req.session.access_token = access_token
-        console.log("Here is the req", req.session.cookie)
+        // console.log("Here is the req", req.session.cookie)
         // console.log(`Successfully got tokens, Access Token:${access_token}, Refresh Token: ${refresh_token}`)
         res.redirect(`http://127.0.0.1:5173?access_token=${access_token}`)
         return access_token
