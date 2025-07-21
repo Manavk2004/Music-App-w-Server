@@ -172,7 +172,7 @@ body{
   }
 }
 
-#mp3-image{
+.mp3-image{
   width: 100%;
   height: 75%;
   border-radius: 1.25rem;

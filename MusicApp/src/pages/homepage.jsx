@@ -146,6 +146,8 @@ export default function homePage(){
                 </div>
 
                 <div id="body-container">
+
+                    {/* This is all involving the loading page before we login. !clicked means we have not logged in */}
                     {!clicked &&
                         <>
                             <div className="fidgets" id="fidget1">
@@ -160,8 +162,26 @@ export default function homePage(){
                             <div className="fidgets" id="fidget4">
                                 <img className="fidget-image" src={loadingImages[3]} />
                             </div>
+
+                            <div id="mp3-container1">
+                                <div id="mp3-photo-1">
+                                    <img class="mp3-image" src={loadingImages[4]} />
+                                </div>
+
+                                <div id="audio-controls">
+                                    <img id="restart-button" src={restart}/>
+                                    <img  id="go-back" src={goBack}/>
+                                    <img onClick={() => setPlay((prev) => (!prev))} id="play-button" src={play === true ? playbutton : pausebutton}/>
+                                    <img id='skip-forward' src={skipForward}/>
+                                    <img id="shuffle-button" src={shuffle}/>
+                                </div>
+                            </div>
+                            <div id="chat-bot">
+                                <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages()}}>LOGIN</button>
+                            </div>
                         </>
                     }
+                    {/* This is where we login and we load the states up with the images for the fidgets and mp3 player */}
                     {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
                         <>
                             <div className="fidgets" id="fidget1">
@@ -178,31 +198,28 @@ export default function homePage(){
                             </div>
                         </>
                     }
-                    <div id="mp3-container1">
-                        <div id="mp3-photo-1">
-                            {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
-                                <img id="mp3-image" src={recentlyPlayed[0].url} />
-                            }
-                        </div>
+                    {/* This is now */}
+                    {clicked && 
+                        <>
+                            <div id="mp3-container1">
+                                <div id="mp3-photo-1">
+                                    {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
+                                        <img class="mp3-image" src={recentlyPlayed[0].url} />
+                                    }
+                                </div>
 
-                        <div id="audio-controls">
-                            <img id="restart-button" src={restart}/>
-                            <img  id="go-back" src={goBack}/>
-                            <img onClick={() => setPlay((prev) => (!prev))} id="play-button" src={play === true ? playbutton : pausebutton}/>
-                            <img id='skip-forward' src={skipForward}/>
-                            <img id="shuffle-button" src={shuffle}/>
-                        </div>
-                    </div>
-                    <div id="chat-bot">
-                        {!clicked &&
-                            <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages()}}>LOGIN</button>
-                        }
-                        {clicked && 
-                            <div>
-                                <button onClick={getImages}>Get Images</button>
+                                <div id="audio-controls">
+                                    <img id="restart-button" src={restart}/>
+                                    <img  id="go-back" src={goBack}/>
+                                    <img onClick={() => setPlay((prev) => (!prev))} id="play-button" src={play === true ? playbutton : pausebutton}/>
+                                    <img id='skip-forward' src={skipForward}/>
+                                    <img id="shuffle-button" src={shuffle}/>
+                                </div>
                             </div>
-                        }
-                    </div>
+                            <div id="chat-bot">
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
         </>
