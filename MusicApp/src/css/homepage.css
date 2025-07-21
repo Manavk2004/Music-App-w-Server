@@ -111,6 +111,17 @@ body{
   padding-left: 0;
 }
 
+#profile-button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#profile{
+  height: 3.75rem;
+  height: 4.375rem;
+}
+
 
 
 #nav-bar-container{
