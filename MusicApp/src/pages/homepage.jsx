@@ -19,6 +19,7 @@ export default function homePage(){
     const [linkImage, setLinkImage] = useState([])
     const [recentlyPlayed, setRecentlyPlayed] = useState([])
     const [imageIndex, setImageIndex] = useState([])
+    const [loadingImages, setLoadingImages] = useState(["https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c", "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411", "https://i.scdn.co/image/ab67616d0000b273982320da137d0de34410df61", "https://i.scdn.co/image/ab67616d0000b273523458c391fe8180a19a1069", "https://i.scdn.co/image/ab67616d0000b273881d8d8378cd01099babcd44"])
 
 
     //Current URL Loction 
@@ -56,10 +57,11 @@ export default function homePage(){
             }
         })
         .then(res => {
+            console.log("In step two")
             if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
             return res.json()
         })
-        .then(data => console.log("Here is the data", data.artists[0].images, data.artists[1].images, data.artists[2].images, data.artists[3].images, data.artists[4].images))
+        .then(data => console.log("Here is the data", data))
         .catch(err => console.error('Random image fetch error:', err))
     }
 
@@ -147,16 +149,16 @@ export default function homePage(){
                     {!clicked &&
                         <>
                             <div className="fidgets" id="fidget1">
-                                {/* <img className="fidget-image" src={recentlyPlayed[imageIndex[0]].url} /> */}
+                                <img className="fidget-image" src={loadingImages[0]} />
                             </div>
                             <div className="fidgets" id="fidget2">
-                                {/* <img className="fidget-image" src={recentlyPlayed[imageIndex[1]].url} /> */}
+                                <img className="fidget-image" src={loadingImages[1]} />
                             </div>
                             <div className="fidgets" id="fidget3">
-                                {/* <img className="fidget-image" src={recentlyPlayed[imageIndex[2]].url} /> */}
+                                <img className="fidget-image" src={loadingImages[2]} />
                             </div>
                             <div className="fidgets" id="fidget4">
-                                {/* <img className="fidget-image" src={recentlyPlayed[imageIndex[3]].url} /> */}
+                                <img className="fidget-image" src={loadingImages[3]} />
                             </div>
                         </>
                     }

@@ -11,19 +11,19 @@ export async function randomImageGenerator(req, res){
     
     try{
         // Artist IDs for the request
-        const artistIds = "3TVXtAsR1Inumwj472S9r4,4q3ewBCX7sLwd24euuV69X,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,0Y5tJX1MQlPlqiwlOH1tJY "
+        const artistIds = ["3TVXtAsR1Inumwj472S9r4","4q3ewBCX7sLwd24euuV69X","1Xyo4u8uXC1ZmMpatF05PJ","6M2wZ9GZgrQXHCFfjv46we","0Y5tJX1MQlPlqiwlOH1tJY"]
         
-        const response = await axios.get(`https://api.spotify.com/v1/artists?ids=${artistIds}`, {
+        const response = await axios.get(`https://api.spotify.com/v1/artists/${artistIds[4]}/top-tracks`, {
             headers: {
                 Authorization: `Bearer ${key}`
             }
         })
         
-        console.log("Successfully fetched artists:", response.data)
+        console.log("Successfully fetched tracks:", response.data)
         res.json(response.data)
     }
     catch(err){
-        console.log("Error fetching artists:", err.response?.data || err.message)
+        console.log("Error fetching tracks:", err.response?.data || err.message)
         
         // Handle different types of errors
         if (err.response) {
