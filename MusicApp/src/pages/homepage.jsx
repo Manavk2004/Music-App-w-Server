@@ -20,7 +20,9 @@ export default function homePage(){
     const [recentlyPlayed, setRecentlyPlayed] = useState([])
     const [imageIndex, setImageIndex] = useState([])
     const [loadingImages, setLoadingImages] = useState(["https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c", "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411", "https://i.scdn.co/image/ab67616d0000b273982320da137d0de34410df61", "https://i.scdn.co/image/ab67616d0000b273523458c391fe8180a19a1069", "https://i.scdn.co/image/ab67616d0000b273881d8d8378cd01099babcd44"])
-
+    const [topItems, setTopItems] = useState([])
+    const [showCursor, setShowCursor] = useState(true)
+    const [loggedIn, setLoggedIn] = useState(false)
 
     //Current URL Loction 
 
@@ -39,40 +41,51 @@ export default function homePage(){
     }, [])
 
     useEffect(() =>{
-        console.log(recentlyPlayed)
+        console.log("Recently Played", recentlyPlayed)
     }, [recentlyPlayed])
 
     useEffect(() =>{
-        console.log("Recently Played", imageIndex)
+        console.log("Indexes", imageIndex)
     }, [imageIndex])
 
+    useEffect(() => {
+        const timer = setTimeout(() =>{
+            setShowCursor(false)
+        }, 3000)
 
-    // Fetch random images when component mounts and location has no search params
-    function getImages(){
-        fetch("http://127.0.0.1:3001/random-image", {
-            method: "GET",
-            credentials: "include", 
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {
-            console.log("In step two")
-            if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
-            return res.json()
-        })
-        .then(data => console.log("Here is the data", data))
-        .catch(err => console.error('Random image fetch error:', err))
-    }
+        return () => clearTimeout(timer)
+    }, [])
 
 
-
-
+    
+    
+    
+    
     const handleLogin = () => {
         window.location.href = "http://127.0.0.1:3001/login";
         
     }
-
+    
+    //FETCH REQUESTS TO BACKEND
+    
+    const getTopItems = () => {
+        fetch("http://127.0.0.1:3001/get-top-items", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error(`Http error for getting top-items: ${res.status}`)
+                return res.json()
+        })
+        .then(data => {
+            if(!data) throw new Error('No data')
+            console.log("Top items data", data)
+        })
+    }
+    
     const handleArtist = () => {
         fetch('http://127.0.0.1:3001/artist', {
             method: "GET", 
@@ -90,7 +103,7 @@ export default function homePage(){
         // console.log("Image", imageRef, "Link", linkRef)
         setClicked(() => true)
     }
-
+    
     const recentlyPlayedFunc = () =>{
         fetch('http://127.0.0.1:3001/recently-played', {
             method: "GET", 
@@ -110,9 +123,27 @@ export default function homePage(){
             }
             // console.log("Here are the songs", songs)
             setRecentlyPlayed(songs)
-        }
+            }
         )
     }
+
+// Fetch random images when component mounts and location has no search params. This was simply to generate the images for the loading page. Leaving this in here for future changes
+// function getImages(){
+//     fetch("http://127.0.0.1:3001/random-image", {
+//         method: "GET",
+//         credentials: "include", 
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//     .then(res => {
+//         console.log("In step two")
+//         if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+//         return res.json()
+//     })
+//     .then(data => console.log("Here is the data", data))
+//     .catch(err => console.error('Random image fetch error:', err))
+// }
 
 
     //Functions
@@ -140,7 +171,7 @@ export default function homePage(){
                         <Link className="nav-a" href="/home"> <img className="nav-icon" id="home-png" src={home}/> </Link>
                         <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
                         <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
-                        <button id="profile-button" className="nav-a" onClick={handleLogin}> <img className="nav-icon" id="profile" src={profile}/> </button>
+                        <button id="profile-button" className="nav-a" onClick={handleLogin}> <img id="profile" src={profile}/> </button>
                         </ul>
                     </nav>
                 </div>
@@ -177,7 +208,17 @@ export default function homePage(){
                                 </div>
                             </div>
                             <div id="chat-bot">
-                                <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages()}}>LOGIN</button>
+                                <div class="header-container">
+                                    <h1 id="loading-page-header1" className={showCursor ? "typewriter" : "no-cursor" }>
+                                        Welcome to your personal dashboard
+                                    </h1>
+                                    <h1 id="loading-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>
+                                        Press the icon to login
+                                    </h1>
+                                </div>
+                                {loggedIn &&
+                                    <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>LOGIN</button>
+                                }
                             </div>
                         </>
                     }
@@ -204,7 +245,7 @@ export default function homePage(){
                             <div id="mp3-container1">
                                 <div id="mp3-photo-1">
                                     {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
-                                        <img class="mp3-image" src={recentlyPlayed[0].url} />
+                                        <img className="mp3-image" src={recentlyPlayed[0].url} />
                                     }
                                 </div>
 
@@ -217,6 +258,10 @@ export default function homePage(){
                                 </div>
                             </div>
                             <div id="chat-bot">
+                                <div class="header-container">
+                                    <h1 id="enter-page-header" class="typewriter">Hello, I am MusAI</h1>
+                                </div>
+
                             </div>
                         </>
                     }

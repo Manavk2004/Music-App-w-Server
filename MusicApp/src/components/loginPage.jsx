@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 
 export default function RotatingHeader(props) {
-  const headers = ["Welcome to MUSAI", "Your Personal Music Dashboard"];
+  const headers = ["Welcome to MUSAI", "Your Personal Music Assistant"];
   const [index, setIndex] = useState(0);
   const headerCount = useRef(0);
 
