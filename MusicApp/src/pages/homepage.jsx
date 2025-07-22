@@ -72,7 +72,7 @@ export default function homePage(){
         
     }
     
-    //FETCH REQUESTS TO BACKEND
+    //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
         fetch("http://127.0.0.1:3001/get-top-items", {
@@ -134,6 +134,8 @@ export default function homePage(){
         )
     }
 
+    
+
 // Fetch random images when component mounts and location has no search params. This was simply to generate the images for the loading page. Leaving this in here for future changes
 // function getImages(){
 //     fetch("http://127.0.0.1:3001/random-image", {
@@ -151,6 +153,33 @@ export default function homePage(){
 //     .then(data => console.log("Here is the data", data))
 //     .catch(err => console.error('Random image fetch error:', err))
 // }
+
+
+
+
+
+
+
+    // FETCH POST REQUEST TO THE BACKEND
+
+
+
+    const sendTopItems = async () =>{
+        try{
+            const data = mostPlayedSong
+            const res = fetch("http://127.0.0.1:3001/aiconfig", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            const result = await res.json()
+            console.log("The result", result)
+        }catch(err){
+            console.log("Could not post data", err)
+        }
+    }
 
 
     //Functions
