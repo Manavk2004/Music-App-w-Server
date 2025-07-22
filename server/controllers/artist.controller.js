@@ -2,6 +2,8 @@ import express from "express"
 import dotenv from "dotenv"
 import axios from "axios"
 
+
+
 export async function artist(req, res){
     console.log("Here is the session access_token", req.session.access_token)
     const id = "0TnOYISbd1XYRBk9myaseg"
@@ -13,6 +15,7 @@ export async function artist(req, res){
     }
     
     try{
+        
         const response = await axios.get(`https://api.spotify.com/v1/artists/${id}/top-tracks`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`

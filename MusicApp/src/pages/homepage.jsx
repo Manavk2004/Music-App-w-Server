@@ -32,6 +32,7 @@ export default function homePage(){
     //REFS
     const imageRef = useRef("")
     const linkRef = useRef("")
+
     
 
     //USEEffects
@@ -51,10 +52,14 @@ export default function homePage(){
     useEffect(() => {
         const timer = setTimeout(() =>{
             setShowCursor(false)
-        }, 3000)
+        }, 2200)
 
         return () => clearTimeout(timer)
     }, [])
+
+    useEffect(() =>{
+        console.log("Here is the state", loggedIn)
+    }, [loggedIn])
 
 
     
@@ -171,7 +176,12 @@ export default function homePage(){
                         <Link className="nav-a" href="/home"> <img className="nav-icon" id="home-png" src={home}/> </Link>
                         <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
                         <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
-                        <button id="profile-button" className="nav-a" onClick={handleLogin}> <img id="profile" src={profile}/> </button>
+                        {!loggedIn &&
+                            <button id="profile-button" className="nav-a" onClick={ () => {handleLogin; setLoggedIn(true)} }> <img id="profile" src={profile}/> </button>
+                        }
+                        {loggedIn && 
+                            <button id="profile-button-loggedIn" className="nav-a" onClick={() => {handleLogin() }}> <img className='nav-icon' id="profile" src={profile}/> </button>
+                        }
                         </ul>
                     </nav>
                 </div>
@@ -209,15 +219,19 @@ export default function homePage(){
                             </div>
                             <div id="chat-bot">
                                 <div class="header-container">
-                                    <h1 id="loading-page-header1" className={showCursor ? "typewriter" : "no-cursor" }>
-                                        Welcome to your personal dashboard
-                                    </h1>
-                                    <h1 id="loading-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>
-                                        Press the icon to login
-                                    </h1>
+                                    {!loggedIn &&
+                                        <>
+                                            <h1 id="loading-page-header1" className={showCursor ? "typewriter" : "no-cursor" }>
+                                                Welcome to your personal dashboard
+                                            </h1>
+                                            <h1 id="loading-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>
+                                                Press the icon to login
+                                            </h1>
+                                        </>
+                                    }
                                 </div>
                                 {loggedIn &&
-                                    <button onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>LOGIN</button>
+                                    <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>ENTER</button>
                                 }
                             </div>
                         </>

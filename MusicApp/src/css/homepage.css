@@ -84,6 +84,7 @@ body{
   transition: filter 0.2s ease-in-out;
   border-radius: 0.625rem;
   justify-content: center;
+  transition: all 0.5s ease;
 }
 
 .nav-icon:hover {
@@ -135,6 +136,15 @@ body{
   box-shadow: 0 0 5px 1px white;
   border-radius: 60px;
 }
+
+#profile-button-loggedIn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 60px;
+}
+
+
 
 #profile{
   height: 3.75rem;
@@ -351,6 +361,8 @@ body{
   to {width: 25ch }
 }
 
+
+
 @keyframes blink{
   50% {
     opacity: 0;
@@ -370,6 +382,7 @@ body{
   overflow: hidden;
   width: 0;
   border-right: 2px solid white;
+  font-size: 40px
 }
 
 .noCursor{
@@ -388,7 +401,7 @@ body{
   justify-content: center;
 }
 #chat-bot{
-  border: 2px solid white;
+  /* border: 2px solid white; */
   grid-column: 6 / 13;
   grid-row: 5 / 13;
   border-radius: 20px;
@@ -403,19 +416,40 @@ body{
 }
 
 #enter-page-header{
-  animation: typing 2.5s steps(22) forwards
+  animation: typing 2.2s steps(22) forwards
 }
 
 #loading-page-header1{
-  animation: typing 3s steps(33) forwards;
+  animation: typing 2.2s steps(33) forwards;
+  font-size: 40px;
+  font-family: monospace
 }
 
 #loading-page-header2{
-  animation: typing2 3s steps(25) forwards;
-  animation-delay: 3s
+  animation: typing2 2s steps(25) forwards;
+  animation-delay: 2.2s
 }
 
+#enter-button{
+  width: 50%;
+  height: 20%;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  animation: slideUp 1s ease-out forwards;
+  box-shadow: 0 0 4px 0 rgb(82, 80, 80);
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s ease-out
+}
 
+#enter-button:hover{
+  transition: scale(1.1);
+  box-shadow: 0 0 10px 0 white
+}
 
 
 
