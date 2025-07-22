@@ -89,7 +89,7 @@ export default function homePage(){
         .then(data => {
             if(!data) throw new Error('No data')
             console.log("Top items data", data)
-            setMostPlayedSong(data.items[0].album.images[0].url)
+            setMostPlayedSong(data.items[0].album.name)
         })
     }
     
@@ -166,16 +166,25 @@ export default function homePage(){
 
     const sendTopItems = async () =>{
         try{
-            const data = mostPlayedSong
-            const res = fetch("http://127.0.0.1:3001/aiconfig", {
+            console.log("Entered")
+            const data = {
+                mostPlayed: mostPlayedSong
+            }
+            if(!data) throw new Error("No data")
+            console.log("Data updated")
+            const result = await fetch("http://127.0.0.1:3001/aiconfig", {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
-            const result = await res.json()
-            console.log("The result", result)
+            console.log(result)
+            console.log("Fetch done")
+            const results = await result.json()
+            console.log("await done, here is the result", results)
+            console.log("The result", results)
         }catch(err){
             console.log("Could not post data", err)
         }
@@ -306,6 +315,9 @@ export default function homePage(){
                                 <div class="header-container">
                                     <h1 id="enter-page-header" className={showCursor ? "typewriter" : "noCursor" }>Hello, I am MusAI</h1>
                                     <h1 id="enter-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>Let's Get Started </h1>
+                                </div>
+                                <div>
+                                    <button onClick={sendTopItems}>Access AI</button>
                                 </div>
 
                             </div>

@@ -1,5 +1,7 @@
 import express from "express"
-import { aiConfig } from "../controllers/aiConfig.controller.js"
+import { dataTransfer } from "../controllers/aiConfig.controller.js"
 
+
+console.log("Helli from router")
 export const aiConfigRouter = express.Router()
-aiConfigRouter.get("", aiConfig)
+aiConfigRouter.post("", dataTransfer)
