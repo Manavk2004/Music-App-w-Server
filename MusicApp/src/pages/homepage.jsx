@@ -23,6 +23,7 @@ export default function homePage(){
     const [topItems, setTopItems] = useState([])
     const [showCursor, setShowCursor] = useState(true)
     const [loggedIn, setLoggedIn] = useState(false)
+    const [mostPlayedSong, setMostPlayedSong] = useState("")
 
     //Current URL Loction 
 
@@ -58,8 +59,8 @@ export default function homePage(){
     }, [])
 
     useEffect(() =>{
-        console.log("Here is the state", loggedIn)
-    }, [loggedIn])
+        console.log("Most played", mostPlayedSong)
+    }, [mostPlayedSong])
 
 
     
@@ -88,6 +89,7 @@ export default function homePage(){
         .then(data => {
             if(!data) throw new Error('No data')
             console.log("Top items data", data)
+            setMostPlayedSong(data.items[0].album.images[0].url)
         })
     }
     
@@ -259,7 +261,7 @@ export default function homePage(){
                             <div id="mp3-container1">
                                 <div id="mp3-photo-1">
                                     {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
-                                        <img className="mp3-image" src={recentlyPlayed[0].url} />
+                                        <img className="mp3-image" src={mostPlayedSong} />
                                     }
                                 </div>
 

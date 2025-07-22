@@ -9,14 +9,14 @@ export async function topItemsController(req, res){
     }
     console.log("The key is available for topItemsController", key)
     try{
-        const request = await axios.get(`https://api.spotify.com/v1/me/top/${type}`, {
+        const request = await axios.get(`https://api.spotify.com/v1/me/top/${type}?time_range=short_term`, {
             headers: {
                 Authorization: `Bearer ${key}`
-            }
+            },
         })
-        res.json(request)
+        res.json(request.data)
     }catch(err){
-        console.log("Could not make request to api")
+        console.log("Could not make request to api", err)
         res.json("This is the error from the request", err)
     }
 }
