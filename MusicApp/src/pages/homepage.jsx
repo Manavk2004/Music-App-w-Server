@@ -176,10 +176,10 @@ export default function homePage(){
                         <Link className="nav-a" href="/home"> <img className="nav-icon" id="home-png" src={home}/> </Link>
                         <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
                         <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
-                        {!loggedIn &&
-                            <button id="profile-button" className="nav-a" onClick={ () => {handleLogin; setLoggedIn(true)} }> <img id="profile" src={profile}/> </button>
+                        {!location.search.startsWith("?access") &&
+                            <button id="profile-button" className="nav-a" onClick={ handleLogin } > <img id="profile" src={profile}/> </button>
                         }
-                        {loggedIn && 
+                        {location.search.startsWith("?access") &&
                             <button id="profile-button-loggedIn" className="nav-a" onClick={() => {handleLogin() }}> <img className='nav-icon' id="profile" src={profile}/> </button>
                         }
                         </ul>
@@ -219,7 +219,7 @@ export default function homePage(){
                             </div>
                             <div id="chat-bot">
                                 <div class="header-container">
-                                    {!loggedIn &&
+                                    {!location.search.startsWith("?access") &&
                                         <>
                                             <h1 id="loading-page-header1" className={showCursor ? "typewriter" : "no-cursor" }>
                                                 Welcome to your personal dashboard
@@ -230,7 +230,7 @@ export default function homePage(){
                                         </>
                                     }
                                 </div>
-                                {loggedIn &&
+                                {location.search.startsWith("?access") &&
                                     <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>ENTER</button>
                                 }
                             </div>
@@ -273,7 +273,8 @@ export default function homePage(){
                             </div>
                             <div id="chat-bot">
                                 <div class="header-container">
-                                    <h1 id="enter-page-header" class="typewriter">Hello, I am MusAI</h1>
+                                    <h1 id="enter-page-header" className={showCursor ? "typewriter" : "noCursor" }>Hello, I am MusAI</h1>
+                                    <h1 id="enter-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>Let's Get Started </h1>
                                 </div>
 
                             </div>

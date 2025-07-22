@@ -361,7 +361,15 @@ body{
   to {width: 25ch }
 }
 
+@keyframes typing3{
+  from { width: 0}
+  to { width: 18ch }
+}
 
+@keyframes typing4{
+  from {width: 0}
+  to { width: 18ch }
+}
 
 @keyframes blink{
   50% {
@@ -369,9 +377,9 @@ body{
   }
 }
 
+
 .noCursorPrior{
   font-family: monospace;
-  white-space: nowrap;
   overflow: hidden;
   width: 0;
 }
@@ -390,6 +398,7 @@ body{
   white-space: nowrap;
   overflow: hidden;
   width: 0;
+  font-size: 40px;
 }
 
 .header-container{
@@ -415,9 +424,23 @@ body{
   border-radius: 100px;
 }
 
+
+
 #enter-page-header{
-  animation: typing 2.2s steps(22) forwards
+  animation: typing3 2.2s steps(21) forwards
 }
+
+#enter-page-header2{
+  animation: typing4 2.2s steps(19) forwards;
+  animation-delay: 2.2s
+}
+
+
+
+
+
+
+
 
 #loading-page-header1{
   animation: typing 2.2s steps(33) forwards;
@@ -426,7 +449,7 @@ body{
 }
 
 #loading-page-header2{
-  animation: typing2 2s steps(25) forwards;
+  animation: typing2 2.2s steps(25) forwards;
   animation-delay: 2.2s
 }
 
