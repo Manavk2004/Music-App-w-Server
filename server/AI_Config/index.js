@@ -1,37 +1,9 @@
-
-import OpenAI from "openai"
-import dotenv from "dotenv"
-
-
-dotenv.config({path: "../.env"})
-
-export const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY
-})
-
-
-export async function getCurrentWeather() {
-    const weather = {
-        temperature: "75",
-        unit: "F",
-        forecast: "sunny"
-    }
-    return JSON.stringify(weather)
-}
-
-
-export async function getLocation() {
-    return "San Diego, CA"
-}
-
-const availableFunctions = {
-    getCurrentWeather,
-    getLocation
-}
+import { openai } from "./config.js"
+import { findMatch, tools } from "./tools.js"
 
 async function agent(query){
     const messages = [
-        {role: "system", content: "You are a helpful AI agent. Give highly specific answers based on the information you're provided. Prefer to gather information with the tools provided to you rather than giving basic, generic answers."},
+        {role: "system", content: "You are an expert in being an AI agent. You will take care and help the users with their preferences/desires about music. Perfer to gather information using the tools provided, but if you can't develop an answer with the tools, use your knowledge about music."},
         {role: "user", content: query}
     ]
 
@@ -39,52 +11,31 @@ async function agent(query){
 
     for(let i = 0; i < MAX_ITERATIONS; i++){
         const response = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo-1106',
+            model: "gpt-4o",
             messages,
-            tools: [
-                {
-                    type: "function",
-                    function: {
-                        name: "getCurrentWeather",
-                        description: "Get the current weather",
-                        parameters:{
-                            type: "object",
-                            properties: {}
-                        }
-                    }
-                },
-                {
-                    type: "function",
-                    function: {
-                        name: "getLocation",
-                        description: "Get the user's current location",
-                        parameters:{
-                            type: "object",
-                            properties: {}
-                        }
-                    }
-                }
-            ]
+            tools
         })
-        const responseText = response.choices[0]
-        console.log(response)
+        const message = response.choices[0].message
+        messages.push(message)
 
-        const { finish_reason: finishReason, message } = response.choices[0]
-        const { tool_calls: toolCalls } = message
-        
-        if (finishReason === "stop"){
-            console.group(message.content)
-            console.log("AGENT ENDING")
-            return
-        }else if (finishReason === "tool_calls"){
-            for (const toolCall of toolCalls){
-                const functionName = toolCall.function.name
-                const functionToCall = availableFunctions[functionName]
-                const functionResponse = await functionToCall()
-                console.log(functionResponse)
+        if(message.tool_calls){
+            for (const toolCall of message.tool_calls){
+                if (toolCall.function.name === "findMatch"){
+                    const args = JSON.parse(toolCall.function.arguments)
+                    const result = await findMatch(args)
+
+                    messages.push({
+                        role: "tool", 
+                        tool_call_id: toolCall.id,
+                        content: JSON.stringify(result)
+                    })
+                }
             }
+        }else{
+            console.log("Final Answer:", message.content)
+            return message.content
         }
-        }
+    }
 }
 
-await agent("Whats the weather today?")
+agent("What type of music is house music? What does it sound like?")
