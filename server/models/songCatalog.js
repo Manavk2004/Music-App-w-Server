@@ -1,4 +1,4 @@
-export const songs = [
+export const songCatalog = [
   "Too Busy To Be Bae (Francis x)",
   "One More Time (Daft Punk)",
   "Bohemian Rhapsody (Queen)",
