@@ -1,9 +1,23 @@
 import { openai } from "./config.js"
 import { findMatch, tools } from "./tools.js"
 
-async function agent(query){
+export async function agent(query){
     const messages = [
-        {role: "system", content: "You are an expert in being an AI agent. You will take care and help the users with their preferences/desires about music. Perfer to gather information using the tools provided, but if you can't develop an answer with the tools, use your knowledge about music."},
+        {role: "system", content: `You are an expert in being an AI agent. You will take care and help the users with their preferences/desires about music. 
+            WHEN TO USE TOOLS:
+            -User asks for song recommendations
+            -User wants to find music similar to something
+            -User asks about specific songs in their library
+            -User wants to discover new music based on preferences
+
+            WHEN TO USE YOU RKNOWLEDGE:
+            -General music theory questions
+            -Music history questions
+            -Maybe what you would recommend if its a very general question
+            -Any other advice/concerns
+            
+            Prefer to gather information using the tools provided, but if you can't develop an answer with the tools, use your knowledge about music. Remember to be casual with your answers, but still keep the quality of information.
+            `},
         {role: "user", content: query}
     ]
 
@@ -38,4 +52,4 @@ async function agent(query){
     }
 }
 
-agent("What type of music is house music? What does it sound like?")
+agent("Who are the most popular artists at the moment?")
