@@ -29,7 +29,8 @@ export default function homePage(){
     const [mostPlayedSong, setMostPlayedSong] = useState("")
     const [showAI, setShowAI] = useState(false)
     const [userInput, setUserInput] = useState("")
-    const [systemOutputs, setSystemOutputs] = useState(["Place"])
+    const [systemOutputs, setSystemOutputs] = useState(["Place", "this"])
+    const [userInputs, setUserInputs] = useState(["Bye", "Fire"])
 
     //Current URL Loction 
 
@@ -361,6 +362,18 @@ export default function homePage(){
                                                             <img src={textboxArrowLeft} />
                                                         </div>
                                                     ))} 
+                                                </div>
+                                                <div class="user-responses-container">
+                                                    <div class="individual-response-container-2">
+                                                        <p class="user-responses">Hello</p>
+                                                        <img src={textboxArrowRight} />
+                                                    </div>
+                                                    {userInputs.map((input) =>(
+                                                        <div class="individual-response-container-2">
+                                                            <p class="user-responses">{input}</p>
+                                                            <img src={textboxArrowRight} />
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                             <div id="user-question-box">

@@ -505,10 +505,15 @@ body{
   width: 90%;
   height: 80%;
   display: flex;
+  justify-content: space-between
 }
 
 .bot-responses-container{
   margin-left: 100px;
+}
+
+.user-responses-container{
+  margin-right: 100px;
 }
 
 .bot-responses{
@@ -522,9 +527,23 @@ body{
 
 }
 
+
+
+.user-responses{
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  background-color: #3ACFB6 ;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 0;
+
+}
+
 .individual-response-container{
   display: flex;
   flex-direction: column;
+  margin-top: 5px;
 }
 
 .individual-response-container > img{
@@ -532,7 +551,22 @@ body{
   height: 40px;
   position: relative;
   top: -20px;
-  left: -13px;
+  left: -14px;
+  z-index: -1;
+}
+
+.individual-response-container-2{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.individual-response-container-2 > img{
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: -20px;
+  right: -173px;
   z-index: -1;
 }
 
