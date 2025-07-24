@@ -470,19 +470,31 @@ body{
   cursor: pointer
 }
 
-#input-box{
-  border-radius: 10px;
-  width: 70%;
-  margin-left: 10px;
-  border: none;
-  resize: none;
-  outline: none;
-  text-align: center;
+#editable{
+  width: 300px;
+  outline: None;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  max-height: 100px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
-#input-box::placeholder{
-  padding-top: 1.75rem;
-  text-align: center;
+#editable:empty::before{
+  content: attr(data-placeholder)
+}
+
+[contentEditable="true"] {
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  justify-content: center;       /* vertical center */
+  padding: 8px 12px;         /* add padding so text doesn't stick to edge */
+  min-height: 40px;          /* or whatever you want for height */
+  line-height: 1.5;
+  font-size: 16px;
 }
 
 #recommendation-image{

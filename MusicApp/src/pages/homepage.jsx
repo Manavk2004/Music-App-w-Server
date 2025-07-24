@@ -10,6 +10,7 @@ import restart from "../assets/restart.png"
 import goBack from "../assets/goBack.png"
 import chatSend from "../assets/chatSend.png"
 import textboxArrowLeft from "../assets/textboxArrow-left.png"
+import textboxArrowRight from "../assets/textBoxArrow-right.png"
 import  RotatingHeader  from "../components/loginPage.jsx"
 import { useState, useEffect, useRef } from "react"
 import { useLocation, Link } from "react-router-dom"
@@ -356,7 +357,8 @@ export default function homePage(){
                                                 </div>
                                             </div>
                                             <div id="user-question-box">
-                                                <textarea id="input-box" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder="Who are the top artists right now?"></textarea>
+                                                <div id="editable" contentEditable="true" data-placeholder="Whats the oldest genre of music?"></div>
+                                                
                                                 <img src={chatSend} />
                                             </div>
                                         </div>
