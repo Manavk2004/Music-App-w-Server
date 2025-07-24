@@ -505,6 +505,7 @@ body{
   width: 90%;
   height: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
 }
@@ -525,6 +526,7 @@ body{
   color: white;
   font-weight: 700;
   margin-bottom: 0;
+  margin-left: 10px;
 
 }
 
@@ -545,7 +547,6 @@ body{
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  width: 700px;;
 }
 
 .individual-response-container > img{
@@ -553,7 +554,7 @@ body{
   height: 40px;
   position: relative;
   top: -20px;
-  left: -14px;
+  left: -4px;
   z-index: -1;
 }
 
@@ -561,6 +562,7 @@ body{
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+  justify-self: flex-end;
 }
 
 .individual-response-container-2 > img{

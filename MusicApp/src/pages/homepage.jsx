@@ -29,7 +29,7 @@ export default function homePage(){
     const [mostPlayedSong, setMostPlayedSong] = useState("")
     const [showAI, setShowAI] = useState(false)
     const [userInput, setUserInput] = useState("")
-    const [systemOutputs, setSystemOutputs] = useState(["Welcome"])
+    const [systemOutputs, setSystemOutputs] = useState([])
     const [userInputs, setUserInputs] = useState([])
 
     //Current URL Loction 
@@ -245,6 +245,7 @@ export default function homePage(){
             })
             const text = await response.text()
             const cleaned = text.replace(/\*\*/g, '').replace(/\\n/g, '\n');
+            cleaned.replace(/"/g, "")
             console.log("Response from AI", cleaned)
             setUserInputs((prev) => ([...prev, content]))
             setSystemOutputs((prev) => ([...prev, cleaned]))
@@ -382,21 +383,24 @@ export default function homePage(){
                                     <>  
                                         <div class="fade-overlay" id="chatbox">
                                             <div id="texting-container">
-                                                <div class="bot-responses-container">
-                                                    {systemOutputs.map((output) => (
+                                                <div class="user-responses-container">
                                                         <div class="individual-response-container">
-                                                            <p class="bot-responses">{output}</p>
+                                                            <p class="bot-responses">Welcome</p>
                                                             <img src={textboxArrowLeft} />
                                                         </div>
-                                                    ))} 
-                                                </div>
-                                                <div class="user-responses-container">
-                                                    {userInputs.map((input) =>(
-                                                        <div class="individual-response-container-2">
-                                                            <p class="user-responses">{input}</p>
-                                                            <img src={textboxArrowRight} />
-                                                        </div>
-                                                    ))}
+                                                        {userInputs.map((input, index) =>(
+                                                            <div class="response-set">
+                                                                <div class="individual-response-container-2">
+                                                                    <p class="user-responses">{input}</p>
+                                                                    <img src={textboxArrowRight} />
+                                                                </div>
+                                                                <div class="individual-response-container">
+                                                                    <p class="bot-responses">{systemOutputs[index]}</p>
+                                                                    <img src={textboxArrowLeft} />
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        ))}
                                                 </div>
                                             </div>
                                             <div id="user-question-box">
