@@ -8,6 +8,7 @@ import pausebutton from "../assets/pausebutton.png"
 import skipForward from "../assets/skipForward.png"
 import restart from "../assets/restart.png"
 import goBack from "../assets/goBack.png"
+import chatSend from "../assets/chatSend.png"
 import  RotatingHeader  from "../components/loginPage.jsx"
 import { useState, useEffect, useRef } from "react"
 import { useLocation, Link } from "react-router-dom"
@@ -24,6 +25,8 @@ export default function homePage(){
     const [showCursor, setShowCursor] = useState(true)
     const [loggedIn, setLoggedIn] = useState(false)
     const [mostPlayedSong, setMostPlayedSong] = useState("")
+    const [showAI, setShowAI] = useState(false)
+    const [userInput, setUserInput] = useState("")
 
     //Current URL Loction 
 
@@ -59,8 +62,24 @@ export default function homePage(){
     }, [])
 
     useEffect(() =>{
+        const timer = setTimeout(() =>{
+            setShowAI(true)
+        }, 7000)
+    })
+
+    useEffect(() =>{
+        console.log(showAI)
+    }, [showAI])
+
+    useEffect(() =>{
         console.log("Most played", mostPlayedSong)
     }, [mostPlayedSong])
+
+    useEffect(() =>{
+        console.log("Inout", userInput)
+    }, [userInput])
+
+
 
 
     
@@ -88,8 +107,9 @@ export default function homePage(){
         })
         .then(data => {
             if(!data) throw new Error('No data')
-            console.log("Top items data", data)
-            setMostPlayedSong(data.items[0].album.name)
+            // console.log("Top items data", data)
+            // console.log(data.items[0].album)
+            setMostPlayedSong(data.items[0].album.images[0].url)
         })
     }
     
@@ -312,15 +332,31 @@ export default function homePage(){
                                 </div>
                             </div>
                             <div id="chat-bot">
-                                <div class="header-container">
-                                    <h1 id="enter-page-header" className={showCursor ? "typewriter" : "noCursor" }>Hello, I am MusAI</h1>
-                                    <h1 id="enter-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>Let's Get Started </h1>
-                                </div>
-                                <div>
-                                    <button onClick={sendTopItems}>Access AI</button>
-                                </div>
+                                {!showAI &&
+                                    <>
+                                        <div class="header-container">
+                                            <h1 id="enter-page-header" className={showCursor ? "typewriter" : "noCursor" }>Hello, I am MusAI</h1>
+                                            <h1 id="enter-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>Let's Get Started </h1>
+                                        </div>
+                                        <div>
+                                            <button onClick={sendTopItems}>Access AI</button>
+                                        </div>
+                                    </>
+                                }
+                                {showAI &&
+                                    <>  
+                                        <div class="fade-overlay" id="chatbox">
+                                            <div id="user-question-box">
+                                                <textarea id="input-box" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder="Who are the top artists right now?"></textarea>
+                                                <img src={chatSend} />
+                                            </div>
+                                        </div>
+                                    
+                                    </>
+                                }
 
                             </div>
+                            
                         </>
                     }
                 </div>
