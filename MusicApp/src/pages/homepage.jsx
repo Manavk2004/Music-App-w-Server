@@ -29,6 +29,7 @@ export default function homePage(){
     const [mostPlayedSong, setMostPlayedSong] = useState("")
     const [showAI, setShowAI] = useState(false)
     const [userInput, setUserInput] = useState("")
+    const [systemOutputs, setSystemOutputs] = useState(["Place"])
 
     //Current URL Loction 
 
@@ -354,6 +355,12 @@ export default function homePage(){
                                                         <p class="bot-responses">Hello</p>
                                                         <img src={textboxArrowLeft} />
                                                     </div>
+                                                    {systemOutputs.map((output) => (
+                                                        <div class="individual-response-container">
+                                                            <p class="bot-responses">{output}</p>
+                                                            <img src={textboxArrowLeft} />
+                                                        </div>
+                                                    ))} 
                                                 </div>
                                             </div>
                                             <div id="user-question-box">
