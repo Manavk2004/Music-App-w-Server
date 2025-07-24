@@ -51,5 +51,3 @@ export async function agent(query){
         }
     }
 }
-
-agent("Who are the most popular artists at the moment?")

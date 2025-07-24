@@ -43,17 +43,17 @@ export default function homePage(){
 
     //USEEffects
 
-    useEffect(() =>{
-        console.log(imageRef.current, linkRef.current)
-    }, [])
+    // useEffect(() =>{
+    //     console.log(imageRef.current, linkRef.current)
+    // }, [])
 
-    useEffect(() =>{
-        console.log("Recently Played", recentlyPlayed)
-    }, [recentlyPlayed])
+    // useEffect(() =>{
+    //     console.log("Recently Played", recentlyPlayed)
+    // }, [recentlyPlayed])
 
-    useEffect(() =>{
-        console.log("Indexes", imageIndex)
-    }, [imageIndex])
+    // useEffect(() =>{
+    //     console.log("Indexes", imageIndex)
+    // }, [imageIndex])
 
     useEffect(() => {
         const timer = setTimeout(() =>{
@@ -69,21 +69,21 @@ export default function homePage(){
         }, 7000)
     })
 
-    useEffect(() =>{
-        console.log(showAI)
-    }, [showAI])
+    // useEffect(() =>{
+    //     console.log(showAI)
+    // }, [showAI])
 
-    useEffect(() =>{
-        console.log("Most played", mostPlayedSong)
-    }, [mostPlayedSong])
+    // useEffect(() =>{
+    //     console.log("Most played", mostPlayedSong)
+    // }, [mostPlayedSong])
 
-    useEffect(() =>{
-        console.log("Inout", userInput)
-    }, [userInput])
+    // useEffect(() =>{
+    //     console.log("Inout", userInput)
+    // }, [userInput])
 
-    useEffect(() => {
-        console.log("userInputs", userInputs)
-    }, [userInputs])
+    // useEffect(() => {
+    //     console.log("userInputs", userInputs)
+    // }, [userInputs])
 
 
 
@@ -209,8 +209,8 @@ export default function homePage(){
             console.log(result)
             console.log("Fetch done")
             const results = await result.json()
-            console.log("await done, here is the result", results)
-            console.log("The result", results)
+            // console.log("await done, here is the result", results)
+            // console.log("The result", results)
         }catch(err){
             console.log("Could not post data", err)
         }
@@ -231,10 +231,24 @@ export default function homePage(){
 
     }
 
-    function loadUserInputs(){
+     async function loadUserInputs(){
         const content = editableRef.current.innerText
-        console.log("Content", content)
-        setUserInputs((prev) => ([...prev, content]))
+        console.log("Content for fetch request", content)
+        try{
+            const response = await fetch("http://127.0.0.1:3001/response", {
+                method: "POST", 
+                credentials: "include", 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({content})
+            })
+            console.log("Response from AI", response)
+            console.log("Content", content)
+            setUserInputs((prev) => ([...prev, content]))
+        }catch(err){
+            console.log("Error in getting response from /response", err)
+        }
     }
 
     //REFS

@@ -7,6 +7,7 @@ import { artistRouter } from "./routes/artist.router.js"
 import { recentlyPlayedRouter } from "./routes/recentlyPlayed.router.js"
 import { topItemsRouter } from "./routes/topItems.router.js"
 import { aiConfigRouter } from "./routes/aiConfig.router.js"
+import { responseRouter } from "./routes/response.router.js"
 // import { randomImage } from "./routes/randomImage.router.js"
 import session from "express-session"
 import { AgentActionOutputParser } from "langchain/agents"
@@ -40,6 +41,7 @@ app.use("/callback", callBackRouter)
 app.use("/artist", artistRouter)
 app.use("/recently-played", recentlyPlayedRouter)
 app.use("/aiconfig", aiConfigRouter)
+app.use("/response", responseRouter)
 
 
 
