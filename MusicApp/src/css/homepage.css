@@ -431,34 +431,38 @@ body{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
 #chatbox{
+  flex: 1;
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border: 15px solid rgb(0, 0, 0);
   background-color: white;
   color: black;
   border-radius: 20px;
+  flex-direction: column;
 }
 
 #user-question-box{
   display: flex;
   justify-content: space-between;
-  align-items: center;
   border: 2px solid black;
   width: 40%;
+  justify-self: flex-end;
   border-radius: 20px;
-  align-self: flex-end;
   margin-bottom: 20px;
 }
 
 #user-question-box > img{
   width: 60px;
   height: 75px;
+  display: flex;
+  align-items: center;
 
 }
 
@@ -467,27 +471,57 @@ body{
 }
 
 #input-box{
-  align-self: flex-end;
   border-radius: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 70%;
-  height: 10%;
+  margin-left: 10px;
   border: none;
   resize: none;
   outline: none;
-  margin-left: 20px;
-  margin-top: 40px
+  text-align: center;
 }
 
 #input-box::placeholder{
+  padding-top: 1.75rem;
   text-align: center;
 }
 
 #recommendation-image{
   border-radius: 100px;
+}
+
+#texting-container{
+  width: 90%;
+  height: 80%;
+  display: flex;
+}
+
+.bot-responses-container{
+  margin-left: 100px;
+}
+
+.bot-responses{
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  background-color: grey;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 0;
+
+}
+
+.individual-response-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.individual-response-container > img{
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: -20px;
+  left: -13px;
+  z-index: -1;
 }
 
 

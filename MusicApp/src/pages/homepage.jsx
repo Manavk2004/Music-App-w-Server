@@ -9,6 +9,7 @@ import skipForward from "../assets/skipForward.png"
 import restart from "../assets/restart.png"
 import goBack from "../assets/goBack.png"
 import chatSend from "../assets/chatSend.png"
+import textboxArrowLeft from "../assets/textboxArrow-left.png"
 import  RotatingHeader  from "../components/loginPage.jsx"
 import { useState, useEffect, useRef } from "react"
 import { useLocation, Link } from "react-router-dom"
@@ -346,6 +347,14 @@ export default function homePage(){
                                 {showAI &&
                                     <>  
                                         <div class="fade-overlay" id="chatbox">
+                                            <div id="texting-container">
+                                                <div class="bot-responses-container">
+                                                    <div class="individual-response-container">
+                                                        <p class="bot-responses">Hello</p>
+                                                        <img src={textboxArrowLeft} />
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div id="user-question-box">
                                                 <textarea id="input-box" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder="Who are the top artists right now?"></textarea>
                                                 <img src={chatSend} />
