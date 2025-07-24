@@ -29,17 +29,15 @@ export default function homePage(){
     const [mostPlayedSong, setMostPlayedSong] = useState("")
     const [showAI, setShowAI] = useState(false)
     const [userInput, setUserInput] = useState("")
-    const [systemOutputs, setSystemOutputs] = useState(["Place", "this"])
-    const [userInputs, setUserInputs] = useState(["Bye", "Fire"])
+    const [systemOutputs, setSystemOutputs] = useState(["Welcome"])
+    const [userInputs, setUserInputs] = useState([])
 
     //Current URL Loction 
 
     const location = useLocation()
     console.log("Current Location", location)
 
-    //REFS
-    const imageRef = useRef("")
-    const linkRef = useRef("")
+
 
     
 
@@ -82,6 +80,10 @@ export default function homePage(){
     useEffect(() =>{
         console.log("Inout", userInput)
     }, [userInput])
+
+    useEffect(() => {
+        console.log("userInputs", userInputs)
+    }, [userInputs])
 
 
 
@@ -229,6 +231,19 @@ export default function homePage(){
 
     }
 
+    function loadUserInputs(){
+        const content = editableRef.current.innerText
+        console.log("Content", content)
+        setUserInputs((prev) => ([...prev, content]))
+    }
+
+    //REFS
+    const imageRef = useRef("")
+    const linkRef = useRef("")
+    const editableRef = useRef("")
+
+
+
     
 
     return(
@@ -342,9 +357,9 @@ export default function homePage(){
                                             <h1 id="enter-page-header" className={showCursor ? "typewriter" : "noCursor" }>Hello, I am MusAI</h1>
                                             <h1 id="enter-page-header2" className={showCursor ? "noCursorPrior" : "typewriter"}>Let's Get Started </h1>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <button onClick={sendTopItems}>Access AI</button>
-                                        </div>
+                                        </div> */}
                                     </>
                                 }
                                 {showAI &&
@@ -352,10 +367,6 @@ export default function homePage(){
                                         <div class="fade-overlay" id="chatbox">
                                             <div id="texting-container">
                                                 <div class="bot-responses-container">
-                                                    <div class="individual-response-container">
-                                                        <p class="bot-responses">Hello</p>
-                                                        <img src={textboxArrowLeft} />
-                                                    </div>
                                                     {systemOutputs.map((output) => (
                                                         <div class="individual-response-container">
                                                             <p class="bot-responses">{output}</p>
@@ -364,10 +375,6 @@ export default function homePage(){
                                                     ))} 
                                                 </div>
                                                 <div class="user-responses-container">
-                                                    <div class="individual-response-container-2">
-                                                        <p class="user-responses">Hello</p>
-                                                        <img src={textboxArrowRight} />
-                                                    </div>
                                                     {userInputs.map((input) =>(
                                                         <div class="individual-response-container-2">
                                                             <p class="user-responses">{input}</p>
@@ -377,9 +384,9 @@ export default function homePage(){
                                                 </div>
                                             </div>
                                             <div id="user-question-box">
-                                                <div id="editable" contentEditable="true" data-placeholder="Whats the oldest genre of music?"></div>
+                                                <div id="editable" ref={editableRef} contentEditable="true" data-placeholder="Whats the oldest genre of music?"></div>
                                                 
-                                                <img src={chatSend} />
+                                                <img src={chatSend} onClick={() => {loadUserInputs()}} />
                                             </div>
                                         </div>
                                     
