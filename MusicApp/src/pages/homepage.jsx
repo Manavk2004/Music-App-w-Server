@@ -244,8 +244,10 @@ export default function homePage(){
                 body: JSON.stringify({content})
             })
             const text = await response.text()
-            console.log("Response from AI", text)
+            const cleaned = text.replace(/\*\*/g, '').replace(/\\n/g, '\n');
+            console.log("Response from AI", cleaned)
             setUserInputs((prev) => ([...prev, content]))
+            setSystemOutputs((prev) => ([...prev, cleaned]))
         }catch(err){
             console.log("Error in getting response from /response", err)
         }

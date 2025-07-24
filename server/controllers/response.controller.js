@@ -14,6 +14,6 @@ export async function responseController(req, res){
         console.log("Success with AI")
         res.json(aiResponse)
     }catch(err){
-        console.log("Could nto fetch AI")
+        console.log("Could nto fetch AI", err)
     }
 }

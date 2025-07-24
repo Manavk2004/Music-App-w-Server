@@ -3,7 +3,7 @@ import { findMatch, tools } from "./tools.js"
 
 export async function agent(query){
     const messages = [
-        {role: "system", content: `You are an expert in being an AI agent. You will take care and help the users with their preferences/desires about music. 
+        {role: "system", content: `You are an expert in being an AI agent. You will take care and help the users with their preferences/desires about music. Keep your answers a bit shorter and to the point. Be conversational and don't talk too much like a robot.
             WHEN TO USE TOOLS:
             -User asks for song recommendations
             -User wants to find music similar to something

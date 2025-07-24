@@ -505,7 +505,8 @@ body{
   width: 90%;
   height: 80%;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  overflow-y: auto;
 }
 
 .bot-responses-container{
@@ -544,6 +545,7 @@ body{
   display: flex;
   flex-direction: column;
   margin-top: 5px;
+  width: 700px;;
 }
 
 .individual-response-container > img{
