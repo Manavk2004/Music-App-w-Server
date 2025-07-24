@@ -243,8 +243,8 @@ export default function homePage(){
                 },
                 body: JSON.stringify({content})
             })
-            console.log("Response from AI", response)
-            console.log("Content", content)
+            const text = await response.text()
+            console.log("Response from AI", text)
             setUserInputs((prev) => ([...prev, content]))
         }catch(err){
             console.log("Error in getting response from /response", err)
