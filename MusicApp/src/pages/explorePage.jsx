@@ -86,13 +86,13 @@ export function ExplorePage(){
                 </div>
                 <div id="content">
                     <div>
-                        <h1 id="songs-header">Top 5 Songs</h1>
+                        <h1 id="songs-header">Your Top Songs</h1>
                     </div>
                     <div id="music-container">
                         <ImageRender state={topSongs} />
                     </div>
                     <div>
-                        <h1 id="artists-header">Top 5 Artists</h1>
+                        <h1 id="artists-header">Your Top Artists</h1>
                     </div>
                     <div id="artists-container">
                         <ArtistRender state={topArtists} />
