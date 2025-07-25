@@ -80,14 +80,28 @@
     margin-left: 10px;
     margin-top: 200px;
 }
+
+.music-info{
+    display: block;
+}
+
 .artist-name{
     text-align: right;
     margin-right: 15px;
     color: grey
 }
 
-.song-names{
+.song-artist{
+    text-align: right;
+    margin-right: 15px;
+    color: grey;
     font-size: 12px;
+}
+
+
+
+.song-names{
+    font-size: 15px;
     text-align: right;
     margin-right: 15px;
     color: grey;
@@ -101,6 +115,7 @@
 }
 
 .explore-page-image:hover{
+    transition: box-shadow 0.5s ease-in-out;
     box-shadow: 0 0 20px 1px rgb(166, 165, 165)
 }
 
@@ -113,6 +128,7 @@
 }
 
 .fidget-explore:hover{
+    transition: box-shadow 0.5s ease-in-out;
     box-shadow: 0 0 20px 1px rgb(166, 165, 165);
 }
 

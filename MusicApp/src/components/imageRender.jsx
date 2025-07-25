@@ -9,7 +9,10 @@ export function ImageRender(props){
             return (
                 <div key={index} className="fidget-explore" id={`fidget${index}-explore`}>
                     <a href={song.uri}><img className="explore-fidget-img" src={song.album.images[0].url}/></a>
-                    <p className="song-names">{song.name} - {song.album.artists[0].name}</p>
+                    <div className="music-info">
+                        <p className="song-names">{song.name}</p>
+                        <p className="song-artist">{song.album.artists[0].name}</p>
+                    </div>
                 </div>
             )
         })
