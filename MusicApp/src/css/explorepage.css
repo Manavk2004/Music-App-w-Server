@@ -1,3 +1,41 @@
+
+
+/* Images and container */
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromTop{
+  from{
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
 #explore-page-container{
     border: 2px solid black;
     width: 100vw;
@@ -5,56 +43,106 @@
     background-image: radial-gradient(circle at 50% 200%, rgb(94, 94, 126), transparent); 
 }
 
-#music-grid{
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    grid-template-rows: repeat(13, 1fr);
+#music-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+
+#artists-container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 100px;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+#songs-header{
+    align-self: flex-start;
+    margin-left: 10px;
+    font-family: monospace;
+    font-size: 40px;
+}
+
+#artists-header{
+    font-family: monospace;
+    font-size: 40px;
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-top: 200px;
+}
+.artist-name{
+    text-align: right;
+    margin-right: 15px;
+    color: grey
+}
+
+.explore-page-image{
+    width: 287px;
+    height: 300px;
+    border-radius: 20px;
+    font-family: monospace
+}
+
+.explore-page-image:hover{
+    box-shadow: 0 0 20px 1px rgb(166, 165, 165)
 }
 
 .fidget-explore{
     border-radius: 20px;
     margin-right: 10px;
     margin-left: 10px;
+    display: fit-content;
+    height: fit-content
 }
 
-#top-songs-container{
-    grid-column: 1/14;
-    grid-row: 1/5;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+.fidget-explore:hover{
+    box-shadow: 0 0 20px 1px rgb(166, 165, 165);
 }
 
-#fidget1-explore{
-    border: 2px solid white;
-    grid-column: 1/2;
-    grid-row: 1/6;
+.explore-fidget-img{
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+#fidget0-explore{
     margin-top: 0;
     margin-top: 10px;
     margin-left: 10px;
+    animation: slideInFromLeft 0.8s ease-out;
 }
 
-#fidget2-explore{
-    border: 2px solid white;
-    grid-column: 2/3;
-    grid-row: 1/6;
+#fidget1-explore{
     margin-left: 10px;
     margin-top: 10px;
     margin-right: 10px;
+    animation: slideInFromLeft 0.6s ease-out;
+
+}
+
+#fidget2-explore{
+    margin-right: 10px;
+    margin-top: 10px;
+    animation: slideFromTop 0.8s ease-out
 }
 
 #fidget3-explore{
-    border: 2px solid white;
-    grid-column: 3/4;
-    grid-row: 1/6;
-    margin-right: 10px;
     margin-top: 10px;
+    animation: slideInRight 0.6s ease-out
 }
 
 #fidget4-explore{
-    border: 2px solid white;
-    grid-column: 4/5;
-    grid-row: 1/6;
-    margin-top: 10px;
+    animation: slideInRight 0.8s ease-out;
 }
+
+

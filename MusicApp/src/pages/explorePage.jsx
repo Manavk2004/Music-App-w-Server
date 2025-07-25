@@ -2,11 +2,75 @@ import home from "../assets/home.png"
 import musicNote from "../assets/music-note.png"
 import folder from "../assets/folder.png"
 import { Link, useLocation } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import { ImageRender } from "../components/imageRender.jsx"
+import { ArtistRender } from "../components/artistRender.jsx"
 
 export function ExplorePage(){
 
+    const [topSongs, setTopSongs] = useState([])
+    const [topArtists, setTopArtists] = useState([])
+
     const location = useLocation()
     console.log(location)
+
+    //fetchRequests
+    const getTopFiveSongs = async () =>{
+        try{
+            const response = await fetch("http://127.0.0.1:3001/get-top-items", {
+                method: "GET",
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const text = await response.json()
+            const sliced = text.items.slice(0, 5)
+            console.log("top 5 songs", sliced)
+            setTopSongs(sliced)
+
+        }catch(err){
+            console.log("Could not get top 5 artists", err)
+        }
+
+    }
+
+    const getTopFiveArtists = async () =>{
+        try{
+            const response = await fetch("http://127.0.0.1:3001/top-artists", {
+                method: "GET",
+                credentials: 'include',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+
+            })
+            const text = await response.json()
+            const arrTopArtists = text.items
+            const sliced = arrTopArtists.slice(0, 5)
+            setTopArtists(sliced)
+        }catch(err){
+            console.log("Fetch error for artists", err)
+        }
+    }
+
+
+    //UseEffects
+
+    useEffect(() =>{
+        getTopFiveSongs()
+    }, [])
+
+    useEffect(() =>{
+        getTopFiveArtists()
+    }, [])
+
+    useEffect(() =>{
+        console.log("Top Artists", topArtists)
+    }, [topArtists])
+
+
+   
 
     return(
         <>
@@ -20,22 +84,21 @@ export function ExplorePage(){
                         </ul>
                     </nav>
                 </div>
-                <div id="music-grid">
-                    <div id="top-songs-container">
-                        <div className="fidget-explore" id="fidget1-explore">
-                            <h1>Hello</h1>
-                        </div>
-                        <div className="fidget-explore" id="fidget2-explore">
-                            <h1>Hello</h1>
-                        </div>
-                        <div className="fidget-explore" id="fidget3-explore">
-                            <h1>Hello</h1>
-                        </div>
-                        <div className="fidget-explore" id="fidget4-explore">
-                            <h1>Hello</h1>
-                        </div>
+                <div id="content">
+                    <div>
+                        <h1 id="songs-header">Top 5 Songs</h1>
+                    </div>
+                    <div id="music-container">
+                        <ImageRender state={topSongs} />
+                    </div>
+                    <div>
+                        <h1 id="artists-header">Top 5 Artists</h1>
+                    </div>
+                    <div id="artists-container">
+                        <ArtistRender state={topArtists} />
                     </div>
                 </div>
+
             </div>
         </>
     )
