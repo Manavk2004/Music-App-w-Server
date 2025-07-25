@@ -7,7 +7,7 @@ export function ArtistRender(props){
             return (
                 <>
                     <div key={index} class="artist-picture-container">
-                        <a href={artist.uri}> <img class="explore-page-image" src={artist.images[0].url} /> </a>
+                        <a href={artist.uri}> <img id={`artist-fidget${index}`} class="explore-page-image" src={artist.images[0].url} /> </a>
                         <p class='artist-name'>{artist.name}</p>
                     </div>
                 </>

@@ -10,6 +10,7 @@ export function ExplorePage(){
 
     const [topSongs, setTopSongs] = useState([])
     const [topArtists, setTopArtists] = useState([])
+    const [animate, setAnimate] = useState(false)
 
     const location = useLocation()
     console.log(location)
@@ -69,6 +70,12 @@ export function ExplorePage(){
         console.log("Top Artists", topArtists)
     }, [topArtists])
 
+    useEffect(() =>{
+        if (topArtists.length > 0 && topSongs.length > 0){
+            setAnimate(true)
+        }
+    })
+
 
    
 
@@ -89,13 +96,13 @@ export function ExplorePage(){
                         <h1 id="songs-header">Your Top Songs</h1>
                     </div>
                     <div id="music-container">
-                        <ImageRender state={topSongs} />
+                        {animate && <ImageRender state={topSongs} />}
                     </div>
                     <div>
                         <h1 id="artists-header">Your Top Artists</h1>
                     </div>
                     <div id="artists-container">
-                        <ArtistRender state={topArtists} />
+                        {animate && <ArtistRender state={topArtists} />}
                     </div>
                 </div>
 
