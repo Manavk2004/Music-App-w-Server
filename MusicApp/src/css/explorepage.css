@@ -4,3 +4,57 @@
     height: 100vh;
     background-image: radial-gradient(circle at 50% 200%, rgb(94, 94, 126), transparent); 
 }
+
+#music-grid{
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    grid-template-rows: repeat(13, 1fr);
+    width: 100%;
+}
+
+.fidget-explore{
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#top-songs-container{
+    grid-column: 1/14;
+    grid-row: 1/5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+#fidget1-explore{
+    border: 2px solid white;
+    grid-column: 1/2;
+    grid-row: 1/6;
+    margin-top: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#fidget2-explore{
+    border: 2px solid white;
+    grid-column: 2/3;
+    grid-row: 1/6;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#fidget3-explore{
+    border: 2px solid white;
+    grid-column: 3/4;
+    grid-row: 1/6;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#fidget4-explore{
+    border: 2px solid white;
+    grid-column: 4/5;
+    grid-row: 1/6;
+    margin-top: 10px;
+}

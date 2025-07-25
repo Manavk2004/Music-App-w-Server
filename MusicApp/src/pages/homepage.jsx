@@ -31,29 +31,18 @@ export default function homePage(){
     const [userInput, setUserInput] = useState("")
     const [systemOutputs, setSystemOutputs] = useState([])
     const [userInputs, setUserInputs] = useState([])
+    const [loginURL, setloginURL] = useState("")
 
     //Current URL Loction 
 
     const location = useLocation()
-    console.log("Current Location", location)
+    // console.log("Current Location", location)
 
 
 
     
 
     //USEEffects
-
-    // useEffect(() =>{
-    //     console.log(imageRef.current, linkRef.current)
-    // }, [])
-
-    // useEffect(() =>{
-    //     console.log("Recently Played", recentlyPlayed)
-    // }, [recentlyPlayed])
-
-    // useEffect(() =>{
-    //     console.log("Indexes", imageIndex)
-    // }, [imageIndex])
 
     useEffect(() => {
         const timer = setTimeout(() =>{
@@ -69,21 +58,20 @@ export default function homePage(){
         }, 7000)
     })
 
-    // useEffect(() =>{
-    //     console.log(showAI)
-    // }, [showAI])
+    useEffect(() =>{
+        const timer = setTimeout(() => {
+            setloginURL(location.pathname + location.search)
+        }, 3000)
 
-    // useEffect(() =>{
-    //     console.log("Most played", mostPlayedSong)
-    // }, [mostPlayedSong])
+        return () => clearTimeout(timer)
 
-    // useEffect(() =>{
-    //     console.log("Inout", userInput)
-    // }, [userInput])
+    }, [clicked])
 
-    // useEffect(() => {
-    //     console.log("userInputs", userInputs)
-    // }, [userInputs])
+    useEffect(() =>{
+        console.log("Login URL", loginURL)
+    }, [loginURL])
+
+
 
 
 
@@ -254,6 +242,8 @@ export default function homePage(){
         }
     }
 
+
+
     //REFS
     const imageRef = useRef("")
     const linkRef = useRef("")
@@ -269,8 +259,8 @@ export default function homePage(){
                 <div id="nav-bar-container">
                     <nav id="navbar">
                         <ul id="navbarUL">
-                        <Link className="nav-a" href="/home"> <img className="nav-icon" id="home-png" src={home}/> </Link>
-                        <a className="nav-a" href="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </a>
+                        <Link className="nav-a" to="/home"> <img className="nav-icon" id="home-png" src={home}/> </Link>
+                        <Link className="nav-a" to="/explore"> <img className="nav-icon" id="music-note" src={musicNote}/> </Link>
                         <a className="nav-a" href="/saved"> <img className="nav-icon" id="folder" src={folder}/> </a>
                         {!location.search.startsWith("?access") &&
                             <button id="profile-button" className="nav-a" onClick={ handleLogin } > <img id="profile" src={profile}/> </button>
