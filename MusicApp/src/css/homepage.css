@@ -521,7 +521,7 @@ body{
 .bot-responses{
   padding: 20px;
   border-radius: 10px;
-  width: 200px;
+  width: 250px;
   background-color: grey;
   color: white;
   font-weight: 700;
@@ -535,7 +535,7 @@ body{
 .user-responses{
   padding: 20px;
   border-radius: 10px;
-  width: 200px;
+  width: 250px;
   background-color: #3ACFB6 ;
   color: white;
   font-weight: 700;
@@ -570,7 +570,7 @@ body{
   height: 40px;
   position: relative;
   top: -20px;
-  right: -173px;
+  right: -222px;
   z-index: -1;
 }
 

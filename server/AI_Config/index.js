@@ -1,5 +1,5 @@
 import { openai } from "./config.js"
-import { findMatch, tools } from "./tools.js"
+import { matchEmbeddingToDB, findMatch, tools } from "./tools.js"
 
 export async function agent(query){
     const messages = [
@@ -36,12 +36,18 @@ export async function agent(query){
             for (const toolCall of message.tool_calls){
                 if (toolCall.function.name === "findMatch"){
                     const args = JSON.parse(toolCall.function.arguments)
+                    console.log("The args", args)
                     const result = await findMatch(args)
-
+                    console.log(result)
+                    const results = result.map(({ id, song, similarity}) => ({
+                        id,
+                        song,
+                        similarity
+                    }))
                     messages.push({
                         role: "tool", 
                         tool_call_id: toolCall.id,
-                        content: JSON.stringify(result)
+                        content: JSON.stringify(results)
                     })
                 }
             }
