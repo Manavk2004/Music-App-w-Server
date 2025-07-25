@@ -3,6 +3,7 @@ import './css/homepage.css'
 import Homepage from "./pages/homepage.jsx"
 import { LoginPage } from "./pages/loginPage.jsx"
 import { ExplorePage } from "./pages/explorePage.jsx"
+import { SavedPage } from './pages/savedPage.jsx'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 export function App() {
@@ -15,6 +16,7 @@ export function App() {
           <Route path="/login-page" element={<LoginPage/>} />
           <Route path="/home" element={<Homepage />} />
           <Route path='/explore' element={<ExplorePage />} />
+          <Route path='/saved' element={<SavedPage />} />
         </Routes>
       </BrowserRouter>
     </>
