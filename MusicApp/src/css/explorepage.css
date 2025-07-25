@@ -1,0 +1,6 @@
+#explore-page-container{
+    border: 2px solid black;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(circle at 50% 200%, rgb(94, 94, 126), transparent); 
+}

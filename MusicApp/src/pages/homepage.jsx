@@ -404,9 +404,9 @@ export default function homePage(){
                                                 </div>
                                             </div>
                                             <div id="user-question-box">
-                                                <div id="editable" ref={editableRef} contentEditable="true" data-placeholder="Whats the oldest genre of music?"></div>
+                                                <div id="editable" ref={editableRef} contentEditable="true"></div>
                                                 
-                                                <img src={chatSend} onClick={() => {loadUserInputs()}} />
+                                                <img src={chatSend} onClick={() => { {loadUserInputs()}; editableRef.current.innerText="" } }/>
                                             </div>
                                         </div>
                                     
