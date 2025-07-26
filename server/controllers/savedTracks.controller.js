@@ -3,6 +3,7 @@ import axios from "axios"
 
 export async function savedTracksController(req, res){
     console.log("Hello from savedTracksController")
+    console.log(req)
     const key = req.session.access_token
     console.log(key)
     if(!key){
@@ -15,6 +16,7 @@ export async function savedTracksController(req, res){
                 Authorization: `Bearer ${key}`
             }
         })
+        console.log("response from savec controller", response)
         res.json(response.data)
 
     }catch(err){

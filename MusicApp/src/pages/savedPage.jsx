@@ -24,16 +24,24 @@ export function SavedPage(){
                 }
             })
             const text = await response.json()
-            console.log(text)
+            console.log(response)
+            const items = text.items.slice(0, 19)
+            console.log("The items", items)
+            console.log(items[0].track.name)
+            const arrayOfSongs = items.map((song, index) =>{
+                return(
+                    `${song.track.name}(${song.track.artists[0].name})`
+                )
+            })
+            setSavedTracks(arrayOfSongs)
         }catch(err){
             console.log("Could not make fetch request")
-            console.log(err.response?.data);         // API error response (e.g. from Spotify)
-            console.log(err.response?.status);       // HTTP status code (e.g. 401, 403, 500)
-            console.log(err.response?.statusText);   // Status text (e.g. "Unauthorized")
+            console.log(err.response?.data);         
+            console.log(err.response?.status);       
+            console.log(err.response?.statusText);   
             console.log(err.message);  
         }
     }
-
 
 
 
@@ -42,6 +50,29 @@ export function SavedPage(){
     useEffect(() =>{
         getSavedTracks()
     }, [])
+    
+    useEffect(() =>{
+        console.log("The saved songs", savedTracks)
+    }, [savedTracks])
+
+    useEffect(() =>(
+        async function fetchData(){
+            console.log(savedTracks)
+            try{
+                const response = await fetch("http://127.0.0.1:3001/similar-songs", {
+                    method: "POST", 
+                    credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({savedTracks})
+                })
+            }catch(err){
+                console.log("Error in sending savedTracks array", savedTracks)
+            }
+        }
+    ), [savedTracks])
+
 
     return(
         <>
