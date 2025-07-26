@@ -5,9 +5,15 @@ import { matchEmbeddingToDB, findMatch, tools } from "./tools.js"
 export async function agent(songs){
     const messages = [
         {role: 'system', content: `You are now an expert being an AI agent. You will be going through a user's most liked songs and will be returning songs from a database based on the similarity between vector embeddings. 
-            USE THE TOOL EVERY TIME AS YOU NEED TO GIVE ACCURATE ANSWERS BASED ON THE DATABASE
+            PROCESS:
+            1. Use the findMatch tool to search for similar songs based on the songs passed.
+            2. DO NOT return any identical songs. All songs that are returned must be different from those found in the input. Similarity should never be 1.
+            3. Return the songs, but do not give any explanations. All I need is the info about the songs.
+            4. DO NOT call tools repeatedly. Use them once to get the data, and then provide your final answer.
+
+            Your goal is to give personalized music recommendations based on their history of liked songs.
         `},
-        {role: 'user', content: songs.join('')}
+        {role: 'user', content: `Find similar songs to ${songs.join(', ')}`}
     ]
 
     const MAX_ITERATIONS = 5
@@ -16,11 +22,15 @@ export async function agent(songs){
         const response = await openai.chat.completions.create({
             model: 'gpt-4o',
             messages,
-            tools
+            tools,
+            tool_choice: 'auto'
         })
         const message = response.choices[0].message
         messages.push(message)
-        console.log(message.tool_calls)
+        console.log("Messages log", messages)
+        console.log("The tool calls", messages[2].tool_calls)
+        console.log("The message variable", message)
+        console.log("Tool Calls", message.tool_calls)
 
         if(message.tool_calls){
             try{
@@ -34,7 +44,7 @@ export async function agent(songs){
                         if(!result){
                             console.log("There is no result")
                         }
-                        console.log(result)
+                        // console.log("RAW RESULTS", result)
                         const results = result.map(({ id, song, similarity}) => ({
                             id,
                             song,
@@ -52,7 +62,7 @@ export async function agent(songs){
             }
         }else{
             console.log("Final Answer", message.content)
-            return messages.content
+            return message.content
         }
 
     }

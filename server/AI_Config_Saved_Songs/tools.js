@@ -24,7 +24,7 @@ export async function getEmbedding(arr){
     return resolved
 }
 
-export async function matchEmbeddingToDB( {songs, matchThreshold=0.75, matchCount=5} ) {
+export async function matchEmbeddingToDB( {songs, matchThreshold=0.5, matchCount=5} ) {
     const theEmbedding = await getEmbedding(songs)
     // console.log(theEmbedding)
 
@@ -44,7 +44,7 @@ export async function matchEmbeddingToDB( {songs, matchThreshold=0.75, matchCoun
             if(error){
                 console.log("Error in awaiting rpc", error)
             }else{
-                console.log(data)
+                console.log("Data successful")
             }
             results.push(data)
         }
@@ -53,10 +53,12 @@ export async function matchEmbeddingToDB( {songs, matchThreshold=0.75, matchCoun
         console.log("Could not use match_songs function for array of songs")
     }
     console.log("Here are the results", results)
+    console.log("Result Type:", typeof results)
+    console.log("Result Length", results?.length)
     return results
 }
 
-export async function findMatch({songs, matchThreshold=0.75, matchCount=5}){
+export async function findMatch({songs, matchThreshold=0.5, matchCount=5}){
     const getEmbeddings = await matchEmbeddingToDB({songs, matchThreshold, matchCount})
     return getEmbeddings
 }

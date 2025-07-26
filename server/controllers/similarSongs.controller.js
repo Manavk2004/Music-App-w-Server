@@ -14,8 +14,8 @@ export async function similarSongsController(req, res){
         }
         const response = await agent(songsForEmbedding)
         console.log("The response fo similarSongsController", response)
-        console.log("songForEmbedding", songsForEmbedding)
-        console.log("Sent body", body.savedTracks)
+        // console.log("songForEmbedding", songsForEmbedding)
+        // console.log("Sent body", body.savedTracks)
         req.session.similar_tracks = body.savedTracks
         res.json("Got it")
     }catch(err){
