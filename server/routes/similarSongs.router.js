@@ -4,4 +4,4 @@ import { similarSongsController } from "../controllers/similarSongs.controller.j
 
 export const similarSongsRouter = express.Router()
 
-similarSongsRouter.get("", similarSongsController)
+similarSongsRouter.post("", similarSongsController)

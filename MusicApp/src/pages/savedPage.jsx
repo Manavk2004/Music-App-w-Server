@@ -50,14 +50,16 @@ export function SavedPage(){
     useEffect(() =>{
         getSavedTracks()
     }, [])
-    
+
     useEffect(() =>{
         console.log("The saved songs", savedTracks)
+        fetchData()
     }, [savedTracks])
 
-    useEffect(() =>(
-        async function fetchData(){
-            console.log(savedTracks)
+
+    async function fetchData(){
+        console.log(savedTracks)
+        if (savedTracks.length > 0){
             try{
                 const response = await fetch("http://127.0.0.1:3001/similar-songs", {
                     method: "POST", 
@@ -67,11 +69,16 @@ export function SavedPage(){
                     },
                     body: JSON.stringify({savedTracks})
                 })
+                const text = await response.json()
+                console.log("Response from similar songs fetch", text)
+
             }catch(err){
-                console.log("Error in sending savedTracks array", savedTracks)
+                console.log("Error in sending savedTracks array", err)
             }
         }
-    ), [savedTracks])
+    }
+    
+
 
 
     return(
