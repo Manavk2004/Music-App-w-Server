@@ -11,6 +11,7 @@ dotenv.config()
 export async function getEmbedding(arr){
     const resolved = await Promise.all(
         arr.map(async (song, index) =>{
+            console.log("Song", song)
             const response = await openai.embeddings.create({
                 model: 'text-embedding-3-small',
                 input: song
@@ -31,14 +32,20 @@ export async function matchEmbeddingToDB( {songs, matchThreshold=0.75, matchCoun
 
 
     //THE PROBLEM IS THIS TRY BLOCK NOTHING IS RETURNING AND BEING UPLOADED TO RESULTS
-    
+
     try{
         for(const embeddingObj of theEmbedding){
+            // console.log("The embeddingObj", embeddingObj.embedding)
             const { data, error } = await supabase.rpc("match_songs", {
                 query_embedding: embeddingObj.embedding,
-                matchThreshold: matchThreshold,
+                match_threshold: matchThreshold,
                 match_count: matchCount
             })
+            if(error){
+                console.log("Error in awaiting rpc", error)
+            }else{
+                console.log(data)
+            }
             results.push(data)
         }
         console.log("Results array populated")
