@@ -9,6 +9,8 @@ const __dirName = path.dirname(__fileName)
 console.log(path.resolve(__dirName, "../.env"))
 dotenv.config({path: path.resolve(__dirName, "../.env")})
 
+
+
 export const openai = new OpenAI({
     apiKey: process.env.OPENAI_KEY
 })
