@@ -1,3 +1,5 @@
+
+
 #recommendation-container{
     width: 100%;  
     display: flex;
@@ -57,12 +59,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: fit-content;
+    height: 100%;;
     width: fit-content;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 100px;
-    flex-direction: column;;
+    flex-direction: column;
+    margin-top: 50px
 }
 
 #songs-container > h1{
@@ -77,5 +80,5 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 200px;
+    animation: slideUp 1s ease-out forwards
 }
-

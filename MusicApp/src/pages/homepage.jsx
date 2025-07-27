@@ -140,9 +140,9 @@ export default function homePage(){
         .then(data =>{
             const songs = []
             for (const song of data){
-                songs.push(song.track.album.images[0])
+                songs.push(song.track.album.images[0].url)
             }
-            // console.log("Here are the songs", songs)
+            console.log("Here are the songs", songs)
             setRecentlyPlayed(songs)
             }
         )
@@ -326,16 +326,16 @@ export default function homePage(){
                     {clicked && recentlyPlayed.length === 20 && imageIndex.length === 4 &&
                         <>
                             <div className="fidgets" id="fidget1">
-                                <img className="fidget-image" src={recentlyPlayed[imageIndex[0]].url} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[0]]} />
                             </div>
                             <div className="fidgets" id="fidget2">
-                                <img className="fidget-image" src={recentlyPlayed[imageIndex[1]].url} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[1]]} />
                             </div>
                             <div className="fidgets" id="fidget3">
-                                <img className="fidget-image" src={recentlyPlayed[imageIndex[2]].url} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[2]]} />
                             </div>
                             <div className="fidgets" id="fidget4">
-                                <img className="fidget-image" src={recentlyPlayed[imageIndex[3]].url} />
+                                <img className="fidget-image" src={recentlyPlayed[imageIndex[3]]} />
                             </div>
                         </>
                     }

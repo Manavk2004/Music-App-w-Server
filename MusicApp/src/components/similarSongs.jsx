@@ -18,7 +18,7 @@ export function SimilarSongs(props){
 
         }
         return images.map((url, index) =>{
-            return <a href={uri[index]} ><img className="similar-images" src={url} /> </a>
+            return <a href={uri[index]} ><img id={`savedPageImage${index}`} className="similar-images" src={url} /> </a>
         })
     }
 
