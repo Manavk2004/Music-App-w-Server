@@ -38,12 +38,13 @@ export async function agent(query){
                     const args = JSON.parse(toolCall.function.arguments)
                     console.log("The args", args)
                     const result = await findMatch(args)
-                    console.log(result)
+                    // console.log(result)
                     const results = result.map(({ id, song, similarity}) => ({
                         id,
-                        song,
+                        content: song,
                         similarity
                     }))
+                    console.log(results)
                     messages.push({
                         role: "tool", 
                         tool_call_id: toolCall.id,

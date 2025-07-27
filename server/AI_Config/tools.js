@@ -7,26 +7,39 @@ dotenv.config()
 
 export async function getEmbedding(text){
     const response = await openai.embeddings.create({
-        model: "text-embedding-3-small",
-        input: text
+        model: "text-embedding-3-large",
+        input: text,
+        dimensions: 3072,
     })
 
     return { embedding: response.data[0].embedding }
 }
 
-export async function matchEmbeddingToDB( {text, matchThreshold = 0.75, matchCount = 5} ){
+export async function matchEmbeddingToDB( {text, matchThreshold = 0.4, matchCount = 5} ){
     const theEmbedding = await getEmbedding(text)
     console.log("The Embeddingg", theEmbedding.embedding)
+    console.log(theEmbedding.embedding.length)
+
+    const { data: allSongs, error: counterror } = await supabase
+        .from('songs')
+        .select('id, song')
+        .limit(5)
+    console.log("songs in database:", allSongs)
+    
     const { data, error } = await supabase.rpc('match_songs', {
-        query_embedding: theEmbedding.embedding,
+        input_embedding: `[${theEmbedding.embedding.join(',')}]`,
         match_threshold: matchThreshold,
         match_count: matchCount
     })
+    console.log("The data", data)
     if (error) throw new Error(error.message)
+    for (const object of data){
+        console.log("Object content", object.content)
+    }
     return data
 }
 
-export async function findMatch({text, matchThreshold=0.75, matchCount=5}){
+export async function findMatch({text, matchThreshold=0.4, matchCount=5}){
     const getEmbeddings = await matchEmbeddingToDB({text, matchThreshold, matchCount})
     return getEmbeddings
 }
