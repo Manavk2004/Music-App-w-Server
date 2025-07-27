@@ -15,7 +15,7 @@ export async function getEmbedding(text){
     return { embedding: response.data[0].embedding }
 }
 
-export async function matchEmbeddingToDB( {text, matchThreshold = 0.4, matchCount = 5} ){
+export async function matchEmbeddingToDB( {text, matchThreshold = 0.3, matchCount = 5} ){
     const theEmbedding = await getEmbedding(text)
     console.log("The Embeddingg", theEmbedding.embedding)
     console.log(theEmbedding.embedding.length)
@@ -25,7 +25,7 @@ export async function matchEmbeddingToDB( {text, matchThreshold = 0.4, matchCoun
         .select('id, song')
         .limit(5)
     console.log("songs in database:", allSongs)
-    
+
     const { data, error } = await supabase.rpc('match_songs', {
         input_embedding: `[${theEmbedding.embedding.join(',')}]`,
         match_threshold: matchThreshold,
@@ -39,7 +39,7 @@ export async function matchEmbeddingToDB( {text, matchThreshold = 0.4, matchCoun
     return data
 }
 
-export async function findMatch({text, matchThreshold=0.4, matchCount=5}){
+export async function findMatch({text, matchThreshold=0.3, matchCount=5}){
     const getEmbeddings = await matchEmbeddingToDB({text, matchThreshold, matchCount})
     return getEmbeddings
 }
@@ -61,7 +61,7 @@ export const tools =[
                     },
                     matchThreshold: {
                         type: "number",
-                        description: "Similarity threshold (default: 0.75)"
+                        description: "Similarity threshold (default: 0.3)"
                     },
                     matchCount: {
                         type: "number", 

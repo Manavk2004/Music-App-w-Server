@@ -11,6 +11,7 @@ export async function agent(songs){
             2. DO NOT return any identical songs. All songs that are returned must be different from those found in the input. Similarity should never be 1.
             3. Return the songs, but do not give any explanations. All I need is the info about the songs.
             4. DO NOT call tools repeatedly. Use them once to get the data, and then provide your final answer.
+            5. RETURN THE SONG NAME
 
             Your goal is to give personalized music recommendations based on their history of liked songs.
         `},
@@ -53,9 +54,9 @@ export async function agent(songs){
                             console.log("There is no result")
                         }
                         // console.log("RAW RESULTS", result)
-                        const results = result.map(({ id, content, similarity}) => ({
+                        const results = result.map(({ id, content, similarity, song}) => ({
                             id,
-                            content,
+                            song: song || content,
                             similarity
                         }))
                         if(!results){

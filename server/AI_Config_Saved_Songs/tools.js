@@ -22,11 +22,11 @@ export async function getEmbedding(arr){
             embeddings.push({ embedding: response.data[0].embedding })
         })
     )
-    console.log("📊Embeddings", embeddings)
+    // console.log("📊Embeddings", embeddings)
     return embeddings
 }
 
-export async function matchEmbeddingToDB( {songs, matchThreshold=0.5, matchCount=1} ) {
+export async function matchEmbeddingToDB( {songs, matchThreshold=0.3, matchCount=1} ) {
     console.log("🎶The songs form matchEmbedding function", songs)
     const theEmbedding = await getEmbedding(songs)
     console.log("The length of embedding💡", theEmbedding.length)
@@ -40,8 +40,14 @@ export async function matchEmbeddingToDB( {songs, matchThreshold=0.5, matchCount
         for(const embeddingObj of theEmbedding){
             console.log("📈For loop inside databse matchEmbeddingToDB")
             // console.log("The embeddingObj", embeddingObj.embedding)
+
+            const { data: allSongs, error: countError } = await supabase
+                .from('songs')
+                .select('id, song')
+                .limit(5)
+            console.log("Songs from database", allSongs)
             const { data, error } = await supabase.rpc("match_songs", {
-                query_embedding: embeddingObj.embedding,
+                input_embedding: `[${embeddingObj.embedding.join(',')}]`,
                 match_threshold: matchThreshold,
                 match_count: matchCount
             })
@@ -67,7 +73,7 @@ export async function matchEmbeddingToDB( {songs, matchThreshold=0.5, matchCount
     return results.flat()
 }
 
-export async function findMatch({songs, matchThreshold=0.5, matchCount=1}){
+export async function findMatch({songs, matchThreshold=0.3, matchCount=1}){
     console.log("🤼Inside findMatch function")
     console.log("🤣The songs inside findMatch", songs)
     const getEmbeddings = await matchEmbeddingToDB({songs, matchThreshold, matchCount})
@@ -93,7 +99,7 @@ export const tools = [
                     },
                     matchThreshold:{
                         type: "number", 
-                        description: "Similarity Threshold (defauult: 0.75)"
+                        description: "Similarity Threshold (defauult: 0.3)"
                     },
                     matchCount: {
                         type: "number",
