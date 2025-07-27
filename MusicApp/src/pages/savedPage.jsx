@@ -3,7 +3,7 @@ import home from "../assets/home.png"
 import musicNote from "../assets/music-note.png"
 import folder from "../assets/folder.png"
 import { useState, useEffect } from "react"
-
+import { SimilarSongs } from "../components/similarSongs.jsx"
 
 export function SavedPage(){
     //STATES
@@ -132,11 +132,24 @@ export function SavedPage(){
                         </ul>
                     </nav>
                 </div>
-                {similarSongs.length === 0 &&
-                    <div id="recommendation-container">
-                        <button onClick={() => fetchData()}>Get Recommendations</button>
-                    </div>
-                }
+                <div id="info-container">
+                    {similarSongs.length === 0 &&
+                        <div id="recommendation-container">
+                            <h1 id="recommended-songs-title">Your Recommended Songs</h1>
+                            <button onClick={() => fetchData()}>Get Recommendations</button>
+                        </div>
+                    }
+                    {similarSongsResponse.length > 0 &&
+                        <>
+                            <div id="songs-container">
+                                <h1 id="recommended-songs-title">Your Recommended Songs</h1>
+                                <div id="similarsongscomponent-container">
+                                    <SimilarSongs state={similarSongsResponse} />
+                                </div>
+                            </div>
+                        </>
+                    }
+                </div>
             </div>
 
         </>
