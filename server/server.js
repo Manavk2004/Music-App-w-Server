@@ -11,6 +11,7 @@ import { responseRouter } from "./routes/response.router.js"
 import { topArtistsRouter } from "./routes/topArtists.router.js"
 import { savedTracksRouter } from "./routes/savedTracks.router.js"
 import { similarSongsRouter } from "./routes/similarSongs.router.js"
+import { similarImagesRouter } from "./routes/similarImages.router.js"
 import session from "express-session"
 import { AgentActionOutputParser } from "langchain/agents"
 
@@ -47,6 +48,7 @@ app.use("/response", responseRouter)
 app.use("/top-artists", topArtistsRouter)
 app.use("/saved", savedTracksRouter)
 app.use("/similar-songs", similarSongsRouter)
+app.use("/similar-images", similarImagesRouter)
 
 
 

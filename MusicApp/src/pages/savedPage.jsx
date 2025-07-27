@@ -9,6 +9,8 @@ export function SavedPage(){
     //STATES
     
     const [savedTracks, setSavedTracks] = useState([])
+    const [similarSongs, setSimilarSongs] = useState([])
+    const [isSaved, setIsSaved] = useState(false)
 
 
     //FETCH REQUESTS
@@ -44,6 +46,22 @@ export function SavedPage(){
     }
 
 
+    const fetchImages = () =>{
+        try{
+            fetch("http://127.0.0.1:3001/similar-images", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(similarSongs)
+            })
+        }catch(err){
+            console.log("Coult not make post request to getImages controller", err)
+        }
+    }   
+
+
 
     //USE EFFECTS
 
@@ -54,6 +72,17 @@ export function SavedPage(){
     useEffect(() =>{
         console.log("The saved songs", savedTracks)
     }, [savedTracks])
+
+
+    useEffect(() =>{
+        console.log(isSaved)
+    }, [])
+
+    useEffect(() =>{
+        if(similarSongs.length > 0){
+            fetchImages()
+        }
+    }, [similarSongs])
 
 
     async function fetchData(){
@@ -71,7 +100,7 @@ export function SavedPage(){
                 const text = await response.json()
                 console.log("Response from similar songs fetch", text)
                 console.log(text.split("\n"))
-                setSavedTracks(text.split("\n"))
+                setSimilarSongs(text.split("\n"))
 
             }catch(err){
                 console.log("Error in sending savedTracks array", err)
@@ -94,9 +123,13 @@ export function SavedPage(){
                         </ul>
                     </nav>
                 </div>
-                <button onClick={() => fetchData()}>Get Recommendations</button>
+                {similarSongs.length === 0 &&
+                    <div id="recommendation-container">
+                        <button onClick={() => fetchData()}>Get Recommendations</button>
+                    </div>
+                }
             </div>
-            <h1>Hello</h1>
+
         </>
     )
 }
