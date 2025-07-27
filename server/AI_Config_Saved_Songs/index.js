@@ -12,6 +12,7 @@ export async function agent(songs){
             3. Return the songs, but do not give any explanations. All I need is the info about the songs.
             4. DO NOT call tools repeatedly. Use them once to get the data, and then provide your final answer.
             5. RETURN THE SONG NAME
+            6. DO NOT PUT IT IN A LIST FORM WITH (" - ")
 
             Your goal is to give personalized music recommendations based on their history of liked songs.
         `},

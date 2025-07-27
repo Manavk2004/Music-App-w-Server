@@ -11,6 +11,7 @@ export function SavedPage(){
     const [savedTracks, setSavedTracks] = useState([])
     const [similarSongs, setSimilarSongs] = useState([])
     const [isSaved, setIsSaved] = useState(false)
+    const [similarSongsResponse, setSimilarSongsResponse] = useState([])
 
 
     //FETCH REQUESTS
@@ -46,9 +47,9 @@ export function SavedPage(){
     }
 
 
-    const fetchImages = () =>{
+    const fetchImages = async () =>{
         try{
-            fetch("http://127.0.0.1:3001/similar-images", {
+            const response = await fetch("http://127.0.0.1:3001/similar-images", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -56,6 +57,10 @@ export function SavedPage(){
                 },
                 body: JSON.stringify(similarSongs)
             })
+            console.log("The response form fetchImages" , response)
+            const text = await response.json()
+            console.log("The text", text)
+            setSimilarSongsResponse(text)
         }catch(err){
             console.log("Coult not make post request to getImages controller", err)
         }
@@ -83,6 +88,10 @@ export function SavedPage(){
             fetchImages()
         }
     }, [similarSongs])
+
+    useEffect(() => {
+        console.log("Got the similar songs response", similarSongsResponse)
+    }, [similarSongsResponse])
 
 
     async function fetchData(){
