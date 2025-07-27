@@ -17,7 +17,7 @@ export async function similarSongsController(req, res){
         // console.log("songForEmbedding", songsForEmbedding)
         // console.log("Sent body", body.savedTracks)
         req.session.similar_tracks = body.savedTracks
-        res.json("Got it")
+        res.json(response)
     }catch(err){
         console.log("Did not get the array of saved songs", err)
     }

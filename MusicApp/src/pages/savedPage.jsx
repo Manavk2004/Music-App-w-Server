@@ -53,7 +53,6 @@ export function SavedPage(){
 
     useEffect(() =>{
         console.log("The saved songs", savedTracks)
-        fetchData()
     }, [savedTracks])
 
 
@@ -71,6 +70,8 @@ export function SavedPage(){
                 })
                 const text = await response.json()
                 console.log("Response from similar songs fetch", text)
+                console.log(text.split("\n"))
+                setSavedTracks(text.split("\n"))
 
             }catch(err){
                 console.log("Error in sending savedTracks array", err)
@@ -93,6 +94,7 @@ export function SavedPage(){
                         </ul>
                     </nav>
                 </div>
+                <button onClick={() => fetchData()}>Get Recommendations</button>
             </div>
             <h1>Hello</h1>
         </>
