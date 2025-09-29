@@ -81,14 +81,14 @@ export default function homePage(){
     
     
     const handleLogin = () => {
-        window.location.href = "https://musai.onrender.com/login";
+        window.location.href = `${API}/login`;
         
     }
     
     //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
-        fetch("https://musai.onrender.com/get-top-items", {
+        fetch(`${API}/get-top-items`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -108,7 +108,7 @@ export default function homePage(){
     }
     
     const handleArtist = () => {
-        fetch('https://musai.onrender.com/artist', {
+        fetch(`${API}/artist`, {
             method: "GET", 
             credentials: 'include',
             headers: {
@@ -126,7 +126,7 @@ export default function homePage(){
     }
     
     const recentlyPlayedFunc = () =>{
-        fetch('https://musai.onrender.com/recently-played', {
+        fetch(`${API}/recently-played`, {
             method: "GET", 
             credentials: 'include',
             headers: {
@@ -186,7 +186,7 @@ export default function homePage(){
             }
             if(!data) throw new Error("No data")
             console.log("Data updated")
-            const result = await fetch("https://musai.onrender.com/aiconfig", {
+            const result = await fetch(`${API}/aiconfig`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -223,7 +223,7 @@ export default function homePage(){
         const content = editableRef.current.innerText
         console.log("Content for fetch request", content)
         try{
-            const response = await fetch("https://musai.onrender.com/response", {
+            const response = await fetch(`${API}/response`, {
                 method: "POST", 
                 credentials: "include", 
                 headers: {
