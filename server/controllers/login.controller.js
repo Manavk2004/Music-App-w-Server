@@ -3,7 +3,7 @@ export function login(req, res){
     
     const client_id = process.env.CLIENT_ID
     const client_secret = process.env.CLIENT_SECRET
-    const redirect_uri = "https://musai.onrender.com/callback"
+    const redirect_uri = "https://musaib.onrender.com/callback"
     
     if (!client_id || !client_secret) {
         return res.status(500).json({ error: 'Spotify credentials not configured' })
