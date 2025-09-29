@@ -35,7 +35,7 @@ app.use(
     })
 )
 app.use(express.json())
-const PORT = 3001
+const PORT = process.env.PORT || 4000
 
 // app.use("/random-image", randomImage)
 app.use("/get-top-items", topItemsRouter)
