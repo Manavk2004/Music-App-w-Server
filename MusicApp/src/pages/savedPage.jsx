@@ -19,7 +19,7 @@ export function SavedPage(){
 
     const getSavedTracks = async () => {
         try{
-            const response = await fetch("http://127.0.0.1:3001/saved", {
+            const response = await fetch("https://musai.onrender.com/saved", {
                 method: "GET", 
                 credentials: "include", 
                 headers: {
@@ -49,7 +49,7 @@ export function SavedPage(){
 
     const fetchImages = async () =>{
         try{
-            const response = await fetch("http://127.0.0.1:3001/similar-images", {
+            const response = await fetch("https://musai.onrender.com/similar-images", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -98,7 +98,7 @@ export function SavedPage(){
         console.log(savedTracks)
         if (savedTracks.length > 0){
             try{
-                const response = await fetch("http://127.0.0.1:3001/similar-songs", {
+                const response = await fetch("https://musai.onrender.com/similar-songs", {
                     method: "POST", 
                     credentials: "include",
                     headers: {

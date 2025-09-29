@@ -18,7 +18,7 @@ export function ExplorePage(){
     //fetchRequests
     const getTopFiveSongs = async () =>{
         try{
-            const response = await fetch("http://127.0.0.1:3001/get-top-items", {
+            const response = await fetch("https://musai.onrender.com/get-top-items", {
                 method: "GET",
                 credentials: 'include',
                 headers: {
@@ -38,7 +38,7 @@ export function ExplorePage(){
 
     const getTopFiveArtists = async () =>{
         try{
-            const response = await fetch("http://127.0.0.1:3001/top-artists", {
+            const response = await fetch("https://musai.onrender.com/top-artists", {
                 method: "GET",
                 credentials: 'include',
                 headers:{

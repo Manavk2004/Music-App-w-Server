@@ -81,14 +81,14 @@ export default function homePage(){
     
     
     const handleLogin = () => {
-        window.location.href = "http://127.0.0.1:3001/login";
+        window.location.href = "https://musai.onrender.com/login";
         
     }
     
     //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
-        fetch("http://127.0.0.1:3001/get-top-items", {
+        fetch("https://musai.onrender.com/get-top-items", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -108,7 +108,7 @@ export default function homePage(){
     }
     
     const handleArtist = () => {
-        fetch('http://127.0.0.1:3001/artist', {
+        fetch('https://musai.onrender.com/artist', {
             method: "GET", 
             credentials: 'include',
             headers: {
@@ -126,7 +126,7 @@ export default function homePage(){
     }
     
     const recentlyPlayedFunc = () =>{
-        fetch('http://127.0.0.1:3001/recently-played', {
+        fetch('https://musai.onrender.com/recently-played', {
             method: "GET", 
             credentials: 'include',
             headers: {
@@ -186,7 +186,7 @@ export default function homePage(){
             }
             if(!data) throw new Error("No data")
             console.log("Data updated")
-            const result = await fetch("http://127.0.0.1:3001/aiconfig", {
+            const result = await fetch("https://musai.onrender.com/aiconfig", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -223,7 +223,7 @@ export default function homePage(){
         const content = editableRef.current.innerText
         console.log("Content for fetch request", content)
         try{
-            const response = await fetch("http://127.0.0.1:3001/response", {
+            const response = await fetch("https://musai.onrender.com/response", {
                 method: "POST", 
                 credentials: "include", 
                 headers: {

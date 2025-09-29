@@ -16,7 +16,7 @@ export default function RotatingHeader(props) {
   useEffect(() => {
     headerCount.current += 1;
     if (headerCount.current === 3) {
-      window.location.href="http://127.0.0.1:5173/home"
+      window.location.href="https://musai.onrender.com/home"
     }
   }, [index]);
 
