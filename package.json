@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "start": "concurrently \"npm run start --prefix server\" \"npm run dev --prefix MusicApp\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
+    }
+}
