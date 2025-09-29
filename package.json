@@ -1,6 +1,8 @@
 {
     "scripts": {
-        "start": "concurrently \"npm run start --prefix server\" \"npm run dev --prefix MusicApp\""
+        "start": "concurrently \"npm run start --prefix server\" \"npm run dev --prefix MusicApp\"",
+        "build": "npm run build --prefix MusicApp"
+        
     },
     "devDependencies": {
         "concurrently": "^9.2.1"
