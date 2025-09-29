@@ -28,7 +28,7 @@ export async function callBack(req, res){
         req.session.access_token = access_token
         // console.log("Here is the req", req.session.cookie)
         console.log(`Successfully got tokens, Access Token:${access_token}, Refresh Token: ${refresh_token}`)
-        res.redirect(`https://musaib.onrender.com/home?access_token=${access_token}`)
+        res.redirect(`https://musai.onrender.com/home?access_token=${access_token}`)
         return access_token
     } catch (error) {
         console.error('Error getting tokens:', error.response?.data || error.message)
