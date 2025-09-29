@@ -7,6 +7,7 @@ export default defineConfig({
   server:{
     host: '0.0.0.0',
     port: 10000,
-    open: "/login-page"
+    open: "/login-page",
+    allowedHosts: ['musai.onrender.com']
   }
 })
