@@ -13,7 +13,6 @@ export function SavedPage(){
     const [isSaved, setIsSaved] = useState(false)
     const [similarSongsResponse, setSimilarSongsResponse] = useState([])
 
-    const API = import.meta.env.VITE_API_BASE_URL
     
 
 
@@ -22,7 +21,7 @@ export function SavedPage(){
 
     const getSavedTracks = async () => {
         try{
-            const response = await fetch(`${API}/saved`, {
+            const response = await fetch('https://musaib.onrendhttps://musaib.onrender.com/saved, {
                 method: "GET", 
                 credentials: "include", 
                 headers: {
@@ -52,7 +51,7 @@ export function SavedPage(){
 
     const fetchImages = async () =>{
         try{
-            const response = await fetch(`${API}/similar-images`, {
+            const response = await fetch(`https://musaib.onrender.com/similar-images`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -101,7 +100,7 @@ export function SavedPage(){
         console.log(savedTracks)
         if (savedTracks.length > 0){
             try{
-                const response = await fetch(`${API}/similar-songs`, {
+                const response = await fetch(`https://musaib.onrender.com/similar-songs`, {
                     method: "POST", 
                     credentials: "include",
                     headers: {
