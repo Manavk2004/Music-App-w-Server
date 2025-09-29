@@ -4,7 +4,7 @@ import session from "express-session"
 export async function callBack(req, res){
     const client_id = process.env.CLIENT_ID
     const client_secret = process.env.CLIENT_SECRET
-    const redirect_uri = "http://127.0.0.1:3001/callback"
+    const redirect_uri = "https://musaib.onrender.com/callback"
 
     // console.log('Callback endpoint hit')
     const code = req.query.code
