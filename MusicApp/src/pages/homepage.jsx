@@ -75,20 +75,19 @@ export default function homePage(){
 
 
 
-    const API = import.meta.env.VITE_API_BASE_URL
     
     
     
     
     const handleLogin = () => {
-        window.location.href = `${API}/login`;
+        window.location.href = 'https://musaib.onrender.com/login';
         
     }
     
     //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
-        fetch(`${API}/get-top-items`, {
+        fetch('https://musaib.onrender.com/get-top-items', {
             method: "GET",
             credentials: "include",
             headers: {
@@ -108,7 +107,7 @@ export default function homePage(){
     }
     
     const handleArtist = () => {
-        fetch(`${API}/artist`, {
+        fetch('https://musaib.onrender.com/artist', {
             method: "GET", 
             credentials: 'include',
             headers: {
@@ -126,7 +125,7 @@ export default function homePage(){
     }
     
     const recentlyPlayedFunc = () =>{
-        fetch(`${API}/recently-played`, {
+        fetch('https://musaib.onrender.com/recently-played', {
             method: "GET", 
             credentials: 'include',
             headers: {
