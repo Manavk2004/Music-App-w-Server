@@ -14,7 +14,7 @@
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^2.52.0",
-    "axios": "^1.10.0",
+    "axios": "^1.6.8",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
