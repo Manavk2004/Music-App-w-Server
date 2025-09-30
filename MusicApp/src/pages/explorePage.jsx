@@ -29,14 +29,13 @@ export function ExplorePage(){
                 }
             })
             const text = await response.json()
-            const sliced = text.items.slice(0, 5)
-            console.log("top 5 songs", sliced)
+            console.log("API response for top songs:", text)
+            const items = Array.isArray(text.items) ? text.items : [];
+            const sliced = items.slice(0, 5)
             setTopSongs(sliced)
-
         }catch(err){
-            console.log("Could not get top 5 artists", err)
+            console.log("Could not get top 5 songs", err)
         }
-
     }
 
     const getTopFiveArtists = async () =>{
@@ -50,10 +49,10 @@ export function ExplorePage(){
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 }
-
             })
             const text = await response.json()
-            const arrTopArtists = text.items
+            console.log("API response for top artists:", text)
+            const arrTopArtists = Array.isArray(text.items) ? text.items : [];
             const sliced = arrTopArtists.slice(0, 5)
             setTopArtists(sliced)
         }catch(err){
@@ -80,7 +79,7 @@ export function ExplorePage(){
         if (topArtists.length > 0 && topSongs.length > 0){
             setAnimate(true)
         }
-    })
+    }, [topArtists.length, topSongs.length])
 
 
    
