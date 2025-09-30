@@ -53,7 +53,7 @@ export default function HomePage(){
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const accessToken2 = params.get("access_token")
-        if(accessToken !== null){
+        if(accessToken2 !== null){
             const splittedAccessToken = accessToken2.split(' ')[1]
             setValue(splittedAccessToken)
         }
