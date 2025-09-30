@@ -10,7 +10,7 @@ export async function topArtistsController(req, res){
     } else if (req.session && req.session.access_token) {
         accessToken = req.session.access_token;
     }
-    }
+    
     try{
         const response = await axios.get("https://api.spotify.com/v1/me/top/artists/", {
             headers: {
