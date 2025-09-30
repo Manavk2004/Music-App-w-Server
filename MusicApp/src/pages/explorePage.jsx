@@ -5,24 +5,22 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import { ImageRender } from "../components/imageRender.jsx"
 import { ArtistRender } from "../components/artistRender.jsx"
+import { atom, useAtom } from "jotai"
+import { accessToken } from "./atom/accessTokenAtom.jsx"
 
 export function ExplorePage(){
+
+    //Atom states
+
+    const [ value, setValue ] = useAtom(accessToken)
 
     const [topSongs, setTopSongs] = useState([])
     const [topArtists, setTopArtists] = useState([])
     const [animate, setAnimate] = useState(false)
-    const [ accessToken, setAccessToken ] = useState(null)
 
     const location = useLocation()
     console.log(location)
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
-        if (accessToken !== null){
-            setAccessToken(accessToken)
-        }
-    }, [])
 
     //fetchRequests
     const getTopFiveSongs = async () =>{
@@ -32,7 +30,7 @@ export function ExplorePage(){
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 }
             })
             const text = await response.json()
@@ -52,7 +50,7 @@ export function ExplorePage(){
                 credentials: 'include',
                 headers:{
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 }
             })
             const text = await response.json()

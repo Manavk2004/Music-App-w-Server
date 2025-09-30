@@ -4,6 +4,8 @@ import musicNote from "../assets/music-note.png"
 import folder from "../assets/folder.png"
 import { useState, useEffect } from "react"
 import { SimilarSongs } from "../components/similarSongs.jsx"
+import { accessToken } from "./atom/accessTokenAtom.jsx"
+import { atom, useAtom } from "jotai"
 
 export function SavedPage(){
     //STATES
@@ -14,6 +16,9 @@ export function SavedPage(){
     const [similarSongsResponse, setSimilarSongsResponse] = useState([])
 
     
+    //Atom states
+    const [ value, setValue ] = useAtom(accessToken)
+
 
 
     //FETCH REQUESTS
@@ -28,7 +33,7 @@ export function SavedPage(){
                 credentials: "include", 
                 headers: {
                     "Content-Type": "application/json",
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 }
             })
             const text = await response.json()
@@ -61,7 +66,7 @@ export function SavedPage(){
                 credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 },
                 body: JSON.stringify(similarSongs)
             })
@@ -113,7 +118,7 @@ export function SavedPage(){
                     credentials: "include",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
+                        'Authorization': `Bearer ${value}`
                     },
                     body: JSON.stringify({savedTracks})
                 })

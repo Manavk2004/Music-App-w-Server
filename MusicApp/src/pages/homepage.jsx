@@ -15,10 +15,11 @@ import  RotatingHeader  from "../components/loginPage.jsx"
 import { useState, useEffect, useRef } from "react"
 import { useLocation, Link } from "react-router-dom"
 import { atom, useAtom } from "jotai"
+import { accessToken } from "./atom/accessTokenAtom.jsx"
 
 
-export let accessToken = atom(null)
-export default function homePage(){
+
+export default function HomePage(){
     const [play, setPlay] = useState(true)
     const [clicked, setClicked] = useState(false)
     const [linkImage, setLinkImage] = useState([])
@@ -42,18 +43,18 @@ export default function homePage(){
     // console.log("Current Location", location)
 
 
-    //Atoms
+    //Atom states
 
+    const [ value, setValue ] = useAtom(accessToken)
     
 
     //USEEffects
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
+        const accessToken2 = params.get("access_token")
         if(accessToken !== null){
-            const splittedAccessToken = accessToken.split(' ')[1]
-            const [ value, setValue ] = useAtom(accessToken)
+            const splittedAccessToken = accessToken2.split(' ')[1]
             setValue(splittedAccessToken)
         }
     }, [])
@@ -106,7 +107,7 @@ export default function homePage(){
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${value}`
             }
         })
         .then(res => {
@@ -127,7 +128,7 @@ export default function homePage(){
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${value}`
             }
         })
         .then(res => {
@@ -146,7 +147,7 @@ export default function homePage(){
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessTokenState}`
+                'Authorization': `Bearer ${value}`
             }
         })
         .then(res =>{
@@ -202,12 +203,12 @@ export default function homePage(){
             }
             if(!data) throw new Error("No data")
             console.log("Data updated")
-            const result = await fetch(`${API}/aiconfig`, {
+            const result = await fetch('https://musaib.onrender.com/aiconfig', {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 },
                 body: JSON.stringify(data)
             })
@@ -245,7 +246,7 @@ export default function homePage(){
                 credentials: "include", 
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${value}`
                 },
                 body: JSON.stringify({content})
             })
