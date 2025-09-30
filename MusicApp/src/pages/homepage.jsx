@@ -52,8 +52,7 @@ export default function HomePage(){
         const accessToken2 = params.get("access_token")
         console.log("Access token", accessToken2)
         if(accessToken2 !== null){
-            const splittedAccessToken = accessToken2.split(' ')[1]
-            setValue(splittedAccessToken)
+            setValue(accessToken2)
         }
         console.log("Here is the value", value)
     }, [])
