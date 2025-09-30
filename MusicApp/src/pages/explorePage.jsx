@@ -17,12 +17,15 @@ export function ExplorePage(){
 
     //fetchRequests
     const getTopFiveSongs = async () =>{
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         try{
             const response = await fetch("https://musaib.onrender.com/get-top-items", {
                 method: "GET",
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 }
             })
             const text = await response.json()
@@ -37,12 +40,15 @@ export function ExplorePage(){
     }
 
     const getTopFiveArtists = async () =>{
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         try{
             const response = await fetch("https://musaib.onrender.com/top-artists", {
                 method: "GET",
                 credentials: 'include',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 }
 
             })

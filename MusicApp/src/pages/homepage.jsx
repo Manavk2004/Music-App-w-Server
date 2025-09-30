@@ -87,11 +87,14 @@ export default function homePage(){
     //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/get-top-items', {
             method: "GET",
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         })
         .then(res => {
@@ -107,11 +110,14 @@ export default function homePage(){
     }
     
     const handleArtist = () => {
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/artist', {
             method: "GET", 
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         })
         .then(res => {
@@ -125,11 +131,14 @@ export default function homePage(){
     }
     
     const recentlyPlayedFunc = () =>{
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/recently-played', {
             method: "GET", 
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         })
         .then(res =>{
@@ -178,6 +187,8 @@ export default function homePage(){
 
 
     const sendTopItems = async () =>{
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         try{
             console.log("Entered")
             const data = {
@@ -189,7 +200,8 @@ export default function homePage(){
                 method: "POST",
                 credentials: "include",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(data)
             })
@@ -219,6 +231,8 @@ export default function homePage(){
     }
 
      async function loadUserInputs(){
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         const content = editableRef.current.innerText
         console.log("Content for fetch request", content)
         try{
@@ -226,7 +240,8 @@ export default function homePage(){
                 method: "POST", 
                 credentials: "include", 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify({content})
             })
@@ -316,7 +331,7 @@ export default function homePage(){
                                     }
                                 </div>
                                 {location.search.startsWith("?access") &&
-                                    <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>ENTER</button>
+                                    <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems(), getURL()}}>ENTER</button>
                                 }
                             </div>
                         </>

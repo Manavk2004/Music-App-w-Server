@@ -1,9 +1,13 @@
 import axios from "axios"
 
 export async function similarImagesController(req, res){
-    const key = req.session.access_token
-    if(!key){
-        throw new Error("There is no key")
+    let accessToken = null;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        accessToken = req.headers.authorization.split(' ')[1];
+    } else if (req.query.access_token) {
+        accessToken = req.query.access_token;
+    } else if (req.session && req.session.access_token) {
+        accessToken = req.session.access_token;
     }
     const allResults = []
     console.log("Received req body", req.body)
@@ -32,7 +36,7 @@ export async function similarImagesController(req, res){
         try{
             const response = await axios.get(`https://api.spotify.com/v1/search?q=track%3A${trackQuery}artist%3A${artistQuery.slice(0,-3)}&type=track`, {
                 headers: {
-                    Authorization: `Bearer ${key}`
+                    Authorization: `Bearer ${accessToken}`
                 }
             })
             console.log("The response from similar ImagesController", response.data)

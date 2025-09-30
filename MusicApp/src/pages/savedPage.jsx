@@ -20,12 +20,15 @@ export function SavedPage(){
 
 
     const getSavedTracks = async () => {
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         try{
             const response = await fetch('https://musaib.onrender.com/saved', {
                 method: "GET", 
                 credentials: "include", 
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${accessToken}`
                 }
             })
             const text = await response.json()
@@ -50,12 +53,15 @@ export function SavedPage(){
 
 
     const fetchImages = async () =>{
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         try{
             const response = await fetch('https://musaib.onrender.com/similar-images', {
                 method: "POST",
                 credentials: "include",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(similarSongs)
             })
@@ -97,6 +103,8 @@ export function SavedPage(){
 
 
     async function fetchData(){
+        const params = new URLSearchParams(window.location.search)
+        const accessToken = params.get("access_token")
         console.log(savedTracks)
         if (savedTracks.length > 0){
             try{
@@ -104,7 +112,8 @@ export function SavedPage(){
                     method: "POST", 
                     credentials: "include",
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
                     },
                     body: JSON.stringify({savedTracks})
                 })
