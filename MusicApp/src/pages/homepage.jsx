@@ -47,8 +47,9 @@ export default function homePage(){
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
-        if(params.includes("Bearer ")){
-            setAccessTokenState(params)
+        const accessToken = params.get("access_token")
+        if (accessToken !== null){
+            setAccessTokenState(accessToken)
         }
     }, [])
 
