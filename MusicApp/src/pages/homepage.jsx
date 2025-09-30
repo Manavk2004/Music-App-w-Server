@@ -14,8 +14,10 @@ import textboxArrowRight from "../assets/textboxArrow-right.png"
 import  RotatingHeader  from "../components/loginPage.jsx"
 import { useState, useEffect, useRef } from "react"
 import { useLocation, Link } from "react-router-dom"
+import { atom, useAtom } from "jotai"
 
 
+export let accessToken = atom(null)
 export default function homePage(){
     const [play, setPlay] = useState(true)
     const [clicked, setClicked] = useState(false)
@@ -40,6 +42,7 @@ export default function homePage(){
     // console.log("Current Location", location)
 
 
+    //Atoms
 
     
 
@@ -48,8 +51,10 @@ export default function homePage(){
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const accessToken = params.get("access_token")
-        if (accessToken !== null){
-            setAccessTokenState(accessToken)
+        if(accessToken !== null){
+            const splittedAccessToken = accessToken.split(' ')[1]
+            const [ value, setValue ] = useAtom(accessToken)
+            setValue(splittedAccessToken)
         }
     }, [])
 
@@ -101,7 +106,7 @@ export default function homePage(){
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessTokenState}`
+                'Authorization': `Bearer ${accessToken}`
             }
         })
         .then(res => {
@@ -122,7 +127,7 @@ export default function homePage(){
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessTokenState}`
+                'Authorization': `Bearer ${accessToken}`
             }
         })
         .then(res => {
@@ -190,8 +195,6 @@ export default function homePage(){
 
 
     const sendTopItems = async () =>{
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         try{
             console.log("Entered")
             const data = {
@@ -234,8 +237,6 @@ export default function homePage(){
     }
 
      async function loadUserInputs(){
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         const content = editableRef.current.innerText
         console.log("Content for fetch request", content)
         try{

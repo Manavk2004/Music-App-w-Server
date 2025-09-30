@@ -11,7 +11,7 @@ export function ExplorePage(){
     const [topSongs, setTopSongs] = useState([])
     const [topArtists, setTopArtists] = useState([])
     const [animate, setAnimate] = useState(false)
-    const [ accessToken, setAccesToken ] = useState(null)
+    const [ accessToken, setAccessToken ] = useState(null)
 
     const location = useLocation()
     console.log(location)
@@ -20,7 +20,7 @@ export function ExplorePage(){
         const params = new URLSearchParams(window.location.search)
         const accessToken = params.get("access_token")
         if (accessToken !== null){
-            setAccesToken(accessToken)
+            setAccessToken(accessToken)
         }
     }, [])
 
