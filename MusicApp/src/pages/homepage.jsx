@@ -236,7 +236,7 @@ export default function homePage(){
         const content = editableRef.current.innerText
         console.log("Content for fetch request", content)
         try{
-            const response = await fetch(`${API}/response`, {
+            const response = await fetch('https://musaib.onrender.com/response', {
                 method: "POST", 
                 credentials: "include", 
                 headers: {
@@ -331,7 +331,7 @@ export default function homePage(){
                                     }
                                 </div>
                                 {location.search.startsWith("?access") &&
-                                    <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems(), getURL()}}>ENTER</button>
+                                    <button id="enter-button" onClick={() => {recentlyPlayedFunc(); handleArtist(); loadImages(); getTopItems()}}>ENTER</button>
                                 }
                             </div>
                         </>
