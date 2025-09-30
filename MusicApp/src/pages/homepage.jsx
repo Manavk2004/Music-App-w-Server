@@ -32,6 +32,7 @@ export default function homePage(){
     const [systemOutputs, setSystemOutputs] = useState([])
     const [userInputs, setUserInputs] = useState([])
     const [loginURL, setloginURL] = useState("")
+    const [ accessTokenState, setAccessTokenState ] = useState(null)
 
     //Current URL Loction 
 
@@ -43,6 +44,13 @@ export default function homePage(){
     
 
     //USEEffects
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        if(params.includes("Bearer ")){
+            setAccessTokenState(params)
+        }
+    }, [])
 
     useEffect(() => {
         const timer = setTimeout(() =>{
@@ -87,14 +95,12 @@ export default function homePage(){
     //FETCH "GET" REQUESTS TO BACKEND
     
     const getTopItems = () => {
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/get-top-items', {
             method: "GET",
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessTokenState}`
             }
         })
         .then(res => {
@@ -110,14 +116,12 @@ export default function homePage(){
     }
     
     const handleArtist = () => {
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/artist', {
             method: "GET", 
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessTokenState}`
             }
         })
         .then(res => {
@@ -131,14 +135,12 @@ export default function homePage(){
     }
     
     const recentlyPlayedFunc = () =>{
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         fetch('https://musaib.onrender.com/recently-played', {
             method: "GET", 
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessTokenState}`
             }
         })
         .then(res =>{
