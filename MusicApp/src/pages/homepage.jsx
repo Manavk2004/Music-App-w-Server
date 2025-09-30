@@ -26,16 +26,12 @@ export default function HomePage(){
     const [recentlyPlayed, setRecentlyPlayed] = useState([])
     const [imageIndex, setImageIndex] = useState([])
     const [loadingImages, setLoadingImages] = useState(["https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c", "https://i.scdn.co/image/ab67616d0000b273bbd45c8d36e0e045ef640411", "https://i.scdn.co/image/ab67616d0000b273982320da137d0de34410df61", "https://i.scdn.co/image/ab67616d0000b273523458c391fe8180a19a1069", "https://i.scdn.co/image/ab67616d0000b273881d8d8378cd01099babcd44"])
-    const [topItems, setTopItems] = useState([])
     const [showCursor, setShowCursor] = useState(true)
-    const [loggedIn, setLoggedIn] = useState(false)
     const [mostPlayedSong, setMostPlayedSong] = useState("")
     const [showAI, setShowAI] = useState(false)
-    const [userInput, setUserInput] = useState("")
     const [systemOutputs, setSystemOutputs] = useState([])
     const [userInputs, setUserInputs] = useState([])
     const [loginURL, setloginURL] = useState("")
-    const [ accessTokenState, setAccessTokenState ] = useState(null)
 
     //Current URL Loction 
 
@@ -57,6 +53,7 @@ export default function HomePage(){
             const splittedAccessToken = accessToken2.split(' ')[1]
             setValue(splittedAccessToken)
         }
+        console.log("Here is the value", value)
     }, [])
 
     useEffect(() => {
