@@ -25,8 +25,6 @@ export function SavedPage(){
 
 
     const getSavedTracks = async () => {
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         try{
             const response = await fetch('https://musaib.onrender.com/saved', {
                 method: "GET", 

@@ -10,6 +10,7 @@ export async function savedTracksController(req, res){
     } else if (req.session && req.session.access_token) {
         accessToken = req.session.access_token;
     }
+    console.log("Here is tha ccess token from savedtracks", accessToken)
 
     try{
         const response = await axios.get("https://api.spotify.com/v1/me/tracks?limit=50", {
