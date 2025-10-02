@@ -55,7 +55,7 @@ export default function HomePage(){
             setValue(accessToken2)
         }
         console.log("Here is the value", value)
-    }, [])
+    }, [recentlyPlayed])
 
     useEffect(() => {
         const timer = setTimeout(() =>{
