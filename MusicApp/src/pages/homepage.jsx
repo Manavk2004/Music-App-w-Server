@@ -50,12 +50,13 @@ export default function HomePage(){
         console.log("The window", window.location.search)
         const params = new URLSearchParams(window.location.search)
         const accessToken2 = params.get("access_token")
+        console.log("Here is the accessToken from homepage", accessToken2)
         console.log("Access token", accessToken2)
         if(accessToken2 !== null){
             setValue(accessToken2)
         }
         console.log("Here is the value", value)
-    }, [value, setValue, recentlyPlayed, setRecentlyPlayed])
+    }, [])
 
     useEffect(() => {
         const timer = setTimeout(() =>{
