@@ -22,18 +22,6 @@ export function SavedPage(){
 
 
 
-    useEffect(() => {
-        console.log("The window", window.location.search)
-        const params = new URLSearchParams(window.location.search)
-        const accessToken2 = params.get("access_token")
-        console.log("Access token", accessToken2)
-        if(accessToken2 !== null){
-            setValue(accessToken2)
-        }
-        console.log("Here is the value", value)
-    }, [])
-
-
     const getSavedTracks = async () => {
         console.log("access token from getSavedtarcks", value)
         try{
