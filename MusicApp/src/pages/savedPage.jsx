@@ -58,8 +58,6 @@ export function SavedPage(){
 
 
     const fetchImages = async () =>{
-        const params = new URLSearchParams(window.location.search)
-        const accessToken = params.get("access_token")
         try{
             const response = await fetch('https://musaib.onrender.com/similar-images', {
                 method: "POST",

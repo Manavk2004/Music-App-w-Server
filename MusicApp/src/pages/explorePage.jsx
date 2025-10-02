@@ -89,7 +89,7 @@ export function ExplorePage(){
 
     return(
         <>
-            <div id="background">
+            <div id="background" >
                 <div id="nav-bar-container">
                     <nav id="navbar">
                         <ul id="navbarUL">
