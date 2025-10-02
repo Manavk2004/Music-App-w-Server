@@ -25,6 +25,7 @@ export function SavedPage(){
 
 
     const getSavedTracks = async () => {
+        console.log("access token from getSavedtarcks", value)
         try{
             const response = await fetch('https://musaib.onrender.com/saved', {
                 method: "GET", 
